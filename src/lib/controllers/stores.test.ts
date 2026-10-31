@@ -14,11 +14,11 @@ describe('langStore controller', () => {
 	it('перемикає мову та повертає відповідні тексти', () => {
 		langStore.set('uk');
 		expect(langStore.current).toBe('uk');
-		expect(langStore.t('btn_donate')).toBe('Донат');
+		expect(langStore.t('btn_donate')).toBe('Donation');
 
 		langStore.toggle();
 		expect(langStore.current).toBe('en');
-		expect(langStore.t('btn_donate')).toBe('Donate');
+		expect(langStore.t('btn_donate')).toBe('Donation');
 
 		langStore.set('uk');
 		expect(langStore.current).toBe('uk');

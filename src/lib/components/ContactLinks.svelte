@@ -27,6 +27,18 @@
 
 	const channels = [
 		{
+			id: 'donate',
+			name: 'Donation',
+			isLink: true,
+			getUrl: () => 'https://vet-crew-donation.org',
+			getName: () => langStore.t('btn_donate'),
+			getSublabel: () => langStore.t('btn_donate_display'),
+			getTooltip: () => 'vet-crew-donation.org',
+			brandColor: '#ffb327',
+			brandGlow: 'rgba(255, 179, 39, 0.65)',
+			svg: `<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>`
+		},
+		{
 			id: 'instagram',
 			name: 'Instagram',
 			isLink: true,
@@ -37,18 +49,6 @@
 			brandColor: '#e1306c',
 			brandGlow: 'rgba(225, 48, 108, 0.65)',
 			svg: `<rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>`
-		},
-		{
-			id: 'donate',
-			name: 'Donate',
-			isLink: true,
-			getUrl: () => 'https://vet-crew-donation.org',
-			getName: () => langStore.t('btn_donate'),
-			getSublabel: () => langStore.t('btn_donate_display'),
-			getTooltip: () => langStore.t('btn_donate_display'),
-			brandColor: '#ffb327',
-			brandGlow: 'rgba(255, 179, 39, 0.65)',
-			svg: `<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>`
 		},
 		{
 			id: 'info',
