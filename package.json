@@ -1,0 +1,36 @@
+{
+	"name": "vetcrew",
+	"private": true,
+	"version": "0.1.12",
+	"type": "module",
+	"engines": {
+		"node": ">=22"
+	},
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build && node scripts/generate-sitemap.mjs",
+		"preview": "vite preview",
+		"prepare": "svelte-kit sync && husky || echo ''",
+		"bump": "node scripts/bump-version.mjs",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"version:patch": "npm version patch --no-git-tag-version",
+		"version:minor": "npm version minor --no-git-tag-version",
+		"audit:ci": "node scripts/check-audit.js",
+		"test:unit": "vitest run"
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-static": "^3.0.10",
+		"@sveltejs/kit": "^2.57.0",
+		"@sveltejs/vite-plugin-svelte": "^7.0.0",
+		"@types/node": "^22.13.0",
+		"husky": "^9.1.7",
+		"svelte": "^5.55.2",
+		"svelte-check": "^4.4.6",
+		"typescript": "^6.0.2",
+		"vite": "^8.0.7",
+		"vitest": "^4.1.12"
+	},
+	"dependencies": {
+		"lucide-svelte": "^1.0.1"
+	}
+}

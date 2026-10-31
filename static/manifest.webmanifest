@@ -1,0 +1,26 @@
+{
+	"name": "Vet Crew",
+	"short_name": "Vet Crew",
+	"description": "Порятунок, реабілітація та захист тварин — Vet Crew",
+	"start_url": "./",
+	"scope": "./",
+	"display": "standalone",
+	"orientation": "portrait-primary",
+	"background_color": "#070e09",
+	"theme_color": "#598f3a",
+	"icons": [
+		{
+			"src": "favicon.svg",
+			"sizes": "any",
+			"type": "image/svg+xml",
+			"purpose": "any maskable"
+		},
+		{
+			"src": "logo.svg",
+			"sizes": "any",
+			"type": "image/svg+xml",
+			"purpose": "any"
+		}
+	]
+}
+

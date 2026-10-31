@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://alik532ua.github.io/VetCrew/sitemap.xml
