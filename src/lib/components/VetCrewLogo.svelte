@@ -20,8 +20,8 @@
 	// Mouse state in window coordinates (-1 to 1 normalized)
 	let normX = $state(0);
 	let normY = $state(0);
-	let rawSvgX = $state(2048);
-	let rawSvgY = $state(2048);
+	let rawSvgX = $state(485.31);
+	let rawSvgY = $state(485.31);
 	let isHovering = $state(false);
 
 	// Smoothed global 3D tilt angles (degrees)
@@ -161,11 +161,11 @@
 
 			if (svgElement) {
 				const rect = svgElement.getBoundingClientRect();
-				rawSvgX = ((e.clientX - rect.left) / rect.width) * 4096;
-				rawSvgY = ((e.clientY - rect.top) / rect.height) * 4096;
+				rawSvgX = ((e.clientX - rect.left) / rect.width) * 970.62;
+				rawSvgY = ((e.clientY - rect.top) / rect.height) * 970.62;
 
-				targetGlowX = Math.max(5, Math.min(95, (rawSvgX / 4096) * 100));
-				targetGlowY = Math.max(5, Math.min(95, (rawSvgY / 4096) * 100));
+				targetGlowX = Math.max(5, Math.min(95, (rawSvgX / 970.62) * 100));
+				targetGlowY = Math.max(5, Math.min(95, (rawSvgY / 970.62) * 100));
 			}
 
 			isHovering = true;
@@ -215,10 +215,10 @@
 
 				// Idle floating waves for elements
 				for (const el of toes) {
-					const wave = Math.sin(time * 0.0022 + el.def.phase) * 13;
+					const wave = Math.sin(time * 0.0022 + el.def.phase) * 3.2;
 					const rot = Math.cos(time * 0.0018 + el.def.phase) * 1.0;
-					el.targetX = hasOrientation ? tiltNormX * 10 : 0;
-					el.targetY = wave + (hasOrientation ? -tiltNormY * 10 : 0);
+					el.targetX = hasOrientation ? tiltNormX * 2.5 : 0;
+					el.targetY = wave + (hasOrientation ? -tiltNormY * 2.5 : 0);
 					el.targetRot = rot;
 					el.targetScale = 1;
 
@@ -229,12 +229,12 @@
 				}
 
 				// Paw pad
-				const padWave = Math.sin(time * 0.002 + pawPad.phase) * 10;
+				const padWave = Math.sin(time * 0.002 + pawPad.phase) * 2.5;
 				padTransform.targetY = padWave;
 				padTransform.currY += (padTransform.targetY - padTransform.currY) * 0.08;
 
 				// Vet Crew text
-				const textWave = Math.sin(time * 0.0018 + textVetCrew.phase) * 8;
+				const textWave = Math.sin(time * 0.0018 + textVetCrew.phase) * 2.0;
 				textVetCrewTransform.targetY = textWave;
 				textVetCrewTransform.currY += (textVetCrewTransform.targetY - textVetCrewTransform.currY) * 0.08;
 			} else {
@@ -247,26 +247,26 @@
 				if (!isHovering) {
 					targetNormX = Math.sin(idleT * 0.8) * 0.22;
 					targetNormY = Math.cos(idleT * 0.6) * 0.18;
-					activeSvgX = 2048 + Math.sin(idleT * 0.9) * 850;
-					activeSvgY = 2048 + Math.cos(idleT * 0.7) * 650;
-					targetGlowX = (activeSvgX / 4096) * 100;
-					targetGlowY = (activeSvgY / 4096) * 100;
+					activeSvgX = 485.31 + Math.sin(idleT * 0.9) * 200;
+					activeSvgY = 485.31 + Math.cos(idleT * 0.7) * 150;
+					targetGlowX = (activeSvgX / 970.62) * 100;
+					targetGlowY = (activeSvgY / 970.62) * 100;
 				}
 
 				targetTiltX = -targetNormY * 11;
 				targetTiltY = targetNormX * 11;
 
-				// Local coordinate inside <g transform="translate(-30, 355)">
-				const localCursorX = activeSvgX - (-30);
-				const localCursorY = activeSvgY - 355;
+				// Local coordinate inside <g transform="translate(0, 55)">
+				const localCursorX = activeSvgX;
+				const localCursorY = activeSvgY - 55;
 
 				// Update toes with cursor physics
 				for (const el of toes) {
-					const radius = 1350;
+					const radius = 320;
 					const dx = localCursorX - el.def.cx;
 					const dy = localCursorY - el.def.cy;
 					const dist = Math.sqrt(dx * dx + dy * dy);
-					const idleWave = Math.sin(time * 0.0022 + el.def.phase) * 12.0;
+					const idleWave = Math.sin(time * 0.0022 + el.def.phase) * 3.0;
 
 					if (dist < radius) {
 						const t = 1 - dist / radius;
@@ -274,8 +274,8 @@
 						const nx = dx / (dist || 1);
 						const ny = dy / (dist || 1);
 
-						el.targetX = -nx * ease * 118;
-						el.targetY = -ny * ease * 118 + idleWave;
+						el.targetX = -nx * ease * 28;
+						el.targetY = -ny * ease * 28 + idleWave;
 						el.targetRot = -nx * ease * 8;
 						el.targetScale = 1 + ease * 0.08;
 					} else {
@@ -296,15 +296,15 @@
 					const dx = localCursorX - pawPad.cx;
 					const dy = localCursorY - pawPad.cy;
 					const dist = Math.sqrt(dx * dx + dy * dy);
-					const idleWave = Math.sin(time * 0.002 + pawPad.phase) * 10.0;
+					const idleWave = Math.sin(time * 0.002 + pawPad.phase) * 2.5;
 
-					if (dist < 1520) {
-						const t = 1 - dist / 1520;
+					if (dist < 360) {
+						const t = 1 - dist / 360;
 						const ease = t * t * (3 - 2 * t);
 						const nx = dx / (dist || 1);
 						const ny = dy / (dist || 1);
-						padTransform.targetX = -nx * ease * 84;
-						padTransform.targetY = -ny * ease * 84 + idleWave;
+						padTransform.targetX = -nx * ease * 20;
+						padTransform.targetY = -ny * ease * 20 + idleWave;
 						padTransform.targetScale = 1 + ease * 0.06;
 					} else {
 						padTransform.targetX = 0;
@@ -321,11 +321,11 @@
 					const dx = localCursorX - textVetCrew.cx;
 					const dy = localCursorY - textVetCrew.cy;
 					const dist = Math.sqrt(dx * dx + dy * dy);
-					const idleWave = Math.sin(time * 0.0018 + textVetCrew.phase) * 8.0;
-					if (dist < 1600) {
-						const ease = Math.max(0, 1 - dist / 1600);
+					const idleWave = Math.sin(time * 0.0018 + textVetCrew.phase) * 2.0;
+					if (dist < 380) {
+						const ease = Math.max(0, 1 - dist / 380);
 						textVetCrewTransform.targetScale = 1 + ease * 0.05;
-						textVetCrewTransform.targetY = idleWave - ease * 34;
+						textVetCrewTransform.targetY = idleWave - ease * 8;
 					} else {
 						textVetCrewTransform.targetScale = 1;
 						textVetCrewTransform.targetY = idleWave;
@@ -380,7 +380,7 @@
 		<svg
 			bind:this={svgElement}
 			class="vet-crew-svg"
-			viewBox="0 0 4096 4096"
+			viewBox="0 0 970.62 970.62"
 			xmlns="http://www.w3.org/2000/svg"
 		>
 			<defs>
@@ -406,33 +406,33 @@
 
 				<!-- Soft shadow under the paw -->
 				<filter id="paw-shadow" x="-10%" y="-10%" width="120%" height="120%">
-					<feDropShadow dx="0" dy="32" stdDeviation="48" flood-color="#000000" flood-opacity="0.32" />
+					<feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.32" />
 				</filter>
 			</defs>
 
 			<!-- 1. Background Circle -->
 			<circle
 				id="bg-circle"
-				cx="2048"
-				cy="2048"
-				r="1950"
+				cx="485.31"
+				cy="485.31"
+				r="461.76"
 				fill="var(--logo-bg-circle, #13371b)"
 				stroke="url(#rim-gradient)"
-				stroke-width="20"
+				stroke-width="5"
 			/>
 
 			<!-- 2. Dynamic Specular Sheen Overlay -->
 			<circle
 				class="sheen-overlay"
-				cx="2048"
-				cy="2048"
-				r="1950"
+				cx="485.31"
+				cy="485.31"
+				r="461.76"
 				fill="url(#specular-highlight)"
 				pointer-events="none"
 			/>
 
 			<!-- 3. Logo Content Group -->
-			<g id="logo-content" transform="translate(-30, 77)">
+			<g id="logo-content" transform="translate(0, 55)">
 				<!-- Paw Print with individual dynamic toes -->
 				<g id="paw" fill="var(--logo-paw, #ffffff)" filter="url(#paw-shadow)">
 					{#each toes as toe (toe.def.id)}
