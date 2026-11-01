@@ -31,4 +31,3 @@ npm run audit:ci
 # Збірка для публікації
 npm run build
 ```
-

@@ -30,7 +30,10 @@ describe('tsconfig: прапорці § 1.1', () => {
 	it('strict увімкнений, і жоден прапорець його родини не вимкнено окремо', () => {
 		const strict = options.strict ?? Number(ts.versionMajorMinor.split('.')[0]) >= 6;
 		expect(strict, 'strict вимкнено').toBe(true);
-		expect(STRICT_FAMILY.filter((flag) => options[flag] === false), 'вимкнено окремо').toEqual([]);
+		expect(
+			STRICT_FAMILY.filter((flag) => options[flag] === false),
+			'вимкнено окремо'
+		).toEqual([]);
 	});
 
 	it('прапорці поза strict увімкнені', () => {
@@ -39,9 +42,15 @@ describe('tsconfig: прапорці § 1.1', () => {
 
 	it('svelte.config.js примушує руни в коді проєкту й лишає бібліотекам їхній режим (§ 1.1.1)', () => {
 		const runes = config.compilerOptions?.runes;
-		const modeOf = (filename: string) => (typeof runes === 'function' ? runes({ filename }) : runes);
-		expect(modeOf('src/lib/components/ui/Card.svelte'), 'без рун компонент у синтаксисі Svelte 4 проходить check і lint').toBe(true);
-		expect(modeOf('node_modules/some-lib/Widget.svelte'), 'runes: true для node_modules ламає бібліотеки без рун').toBeUndefined();
+		const modeOf = (filename: string) =>
+			typeof runes === 'function' ? runes({ filename }) : runes;
+		expect(
+			modeOf('src/lib/components/ui/Card.svelte'),
+			'без рун компонент у синтаксисі Svelte 4 проходить check і lint'
+		).toBe(true);
+		expect(
+			modeOf('node_modules/some-lib/Widget.svelte'),
+			'runes: true для node_modules ламає бібліотеки без рун'
+		).toBeUndefined();
 	});
 });
-

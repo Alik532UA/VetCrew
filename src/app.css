@@ -32,7 +32,8 @@
 }
 
 :root {
-	--font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+	--font-main:
+		'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 	--transition-speed: 0.65s;
 	--transition-easing: cubic-bezier(0.16, 1, 0.3, 1);
 	color-scheme: light dark;
@@ -63,9 +64,9 @@
 	--logo-sheen-blend: soft-light;
 
 	/* Light Theme Custom Palette from User Swatch */
-	--logo-bg-circle: #598F3A;
-	--logo-paw: #FFB327;
-	--logo-vet-crew: #E5E5E5;
+	--logo-bg-circle: #598f3a;
+	--logo-paw: #ffb327;
+	--logo-vet-crew: #e5e5e5;
 
 	--brand-circle: #13371b;
 	--brand-emerald: #13371b;
@@ -155,7 +156,6 @@ body {
 	-webkit-user-select: none;
 }
 
-
 button {
 	font-family: inherit;
 	cursor: pointer;
@@ -167,7 +167,6 @@ a {
 	color: inherit;
 	text-decoration: none;
 }
-
 
 /* Accessibility: WCAG 2.2 AA Motion Preferences */
 @media (prefers-reduced-motion: reduce) {
@@ -192,4 +191,3 @@ a:focus-visible {
 	outline: 2px solid var(--brand-gold);
 	outline-offset: 3px;
 }
-

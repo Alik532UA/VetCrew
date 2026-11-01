@@ -61,4 +61,3 @@ describe('themeStore controller', () => {
 		expect(meta.content).toBe('#f5f8f5');
 	});
 });
-

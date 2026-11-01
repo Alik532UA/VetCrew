@@ -37,4 +37,3 @@ class DebugMode {
 }
 
 export const debugMode = new DebugMode();
-

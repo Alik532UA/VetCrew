@@ -18,11 +18,11 @@
 
 Сайт розміщено на спільному домені `alik532ua.github.io`, тому всі ключі веб-сховища мають суворий унікальний префікс.
 
-| Поле                      | Значення           |
-| ------------------------- | ------------------ |
-| **PROJECT_PREFIX**        | `vetcrew_`         |
-| **STORAGE_PREFIX (prod)** | `vetcrew_`         |
-| **STORAGE_PREFIX (dev)**  | `vetcrew-dev_`     |
+| Поле                      | Значення       |
+| ------------------------- | -------------- |
+| **PROJECT_PREFIX**        | `vetcrew_`     |
+| **STORAGE_PREFIX (prod)** | `vetcrew_`     |
+| **STORAGE_PREFIX (dev)**  | `vetcrew-dev_` |
 
 ### Реєстр ключів сховища
 
@@ -62,9 +62,20 @@
   - `"strict": true`
   - `"noUncheckedIndexedAccess": true`
   - `"noImplicitReturns": true`
+- **Лінтинг та форматування (CODE-QUALITY-v10 § 1.2)**:
+  - ESLint 9+ Flat Config (`eslint.config.js`) із плагінами `typescript-eslint`, `eslint-plugin-svelte`, `eslint-config-prettier`.
+  - Prettier (`.prettierrc`) із підтримкою форматування синтаксису Svelte 5 (`prettier-plugin-svelte`).
+  - Команди перевірки: `npm run lint` (`lint:format` + `lint:code`), `npm run format`.
+- **Архітектурні рішення (ADR)**:
+  - `docs/adr/0001-main-portal-3d-canvas.md` (векторна сітка 970, 3D-фізика, доступність, канали допомоги).
 - **CI/CD Автоматизація**:
   - GitHub Actions Workflow (`.github/workflows/deploy.yml`) запускається при `push` та `pull_request` до гілки `main`.
-  - Обов'язкові кроки перевірки: `npm run audit:ci`, `npm run check`, `npm run test:unit`, `npm run build`.
+  - Розділені завдання найменших привілеїв: `build` (`permissions: contents: read`) та `deploy` (`permissions: pages: write, id-token: write`).
+  - Обов'язкові кроки перевірки: `npm run audit:ci`, `npm run check`, `npm run lint`, `npm run test:unit`, `npm run build`.
+  - Автоматичне оновлення залежностей через Dependabot (`.github/dependabot.yml`).
+- **Тестування та надійність**:
+  - Юніт-тести Vitest (`npm run test:unit`): 12 файлів, 64 тести (перевірка CSP, сховища, hotkeys, logService, версіонування).
+  - End-to-end та доступність: Playwright (`playwright.config.ts`, `tests/main.spec.ts`) з інтеграцією `@axe-core/playwright` для верифікації WCAG 2.2 AA.
 
 ## 8. Обробка помилок та Error Boundaries (ERROR-HANDLING-v10 § 2.2)
 

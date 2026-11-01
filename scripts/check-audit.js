@@ -41,9 +41,7 @@ for (let i = 1; i <= ATTEMPTS; i += 1) {
 		break;
 	}
 	lastFailure =
-		result.failure ??
-		result.report?.error?.summary ??
-		'no metadata.vulnerabilities in report';
+		result.failure ?? result.report?.error?.summary ?? 'no metadata.vulnerabilities in report';
 	console.warn(`⚠️ npm audit: attempt ${i} of ${ATTEMPTS} failed (${lastFailure})`);
 	if (i < ATTEMPTS) await new Promise((resolve) => setTimeout(resolve, PAUSE_MS));
 }
@@ -74,4 +72,3 @@ if (blocking > 0) {
 	console.error('   Fix: npm audit --omit=dev --audit-level=high');
 	process.exit(1);
 }
-

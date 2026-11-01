@@ -1,7 +1,7 @@
 {
 	"name": "vetcrew",
 	"private": true,
-	"version": "0.1.14",
+	"version": "0.1.15",
 	"type": "module",
 	"engines": {
 		"node": ">=22"
@@ -13,20 +13,36 @@
 		"prepare": "svelte-kit sync && husky || echo ''",
 		"bump": "node scripts/bump-version.mjs",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"lint": "npm run lint:format && npm run lint:code",
+		"lint:format": "prettier --check .",
+		"lint:code": "eslint .",
+		"format": "prettier --write .",
 		"version:patch": "npm version patch --no-git-tag-version",
 		"version:minor": "npm version minor --no-git-tag-version",
 		"audit:ci": "node scripts/check-audit.js",
-		"test:unit": "vitest run"
+		"test:unit": "vitest run",
+		"test:e2e": "playwright test"
 	},
 	"devDependencies": {
+		"@axe-core/playwright": "^4.14.0",
+		"@eslint/compat": "^2.1.1",
+		"@eslint/js": "^10.0.1",
+		"@playwright/test": "^1.64.1",
 		"@sveltejs/adapter-static": "^3.0.10",
 		"@sveltejs/kit": "^2.57.0",
 		"@sveltejs/vite-plugin-svelte": "^7.0.0",
 		"@types/node": "^22.13.0",
+		"eslint": "^10.14.0",
+		"eslint-config-prettier": "^10.1.8",
+		"eslint-plugin-svelte": "^3.23.1",
+		"globals": "^17.14.0",
 		"husky": "^9.1.7",
+		"prettier": "^3.9.10",
+		"prettier-plugin-svelte": "^4.1.1",
 		"svelte": "^5.55.2",
 		"svelte-check": "^4.4.6",
 		"typescript": "^6.0.2",
+		"typescript-eslint": "^8.72.1",
 		"vite": "^8.0.7",
 		"vitest": "^4.1.12"
 	},

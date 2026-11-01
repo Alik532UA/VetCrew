@@ -37,4 +37,3 @@ export function reloadOnce(href: string): boolean {
 	void freshLoad(href);
 	return true;
 }
-

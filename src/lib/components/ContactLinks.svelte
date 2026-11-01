@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
 	import { langStore } from '../lang.svelte';
 
 	interface Props {
@@ -67,11 +66,7 @@
 
 <svelte:window onkeydown={handleKeydown} />
 
-<div
-	class="contact-container"
-	class:is-expanded={isExpanded}
-	class:is-shifted-up={isShiftedUp}
->
+<div class="contact-container" class:is-expanded={isExpanded} class:is-shifted-up={isShiftedUp}>
 	<nav class="contact-links" aria-label="Vet Crew Actions">
 		{#each channels as item (item.id)}
 			{#if item.isLink}
@@ -94,6 +89,7 @@
 							stroke-linejoin="round"
 							aria-hidden="true"
 						>
+							<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 							{@html item.svg}
 						</svg>
 					</div>
@@ -120,6 +116,7 @@
 							stroke-linejoin="round"
 							aria-hidden="true"
 						>
+							<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 							{@html item.svg}
 						</svg>
 					</div>
@@ -133,11 +130,7 @@
 
 <!-- Info Modal Popup Dialog -->
 {#if isInfoOpen}
-	<div
-		class="modal-backdrop"
-		role="presentation"
-		onclick={closeInfo}
-	>
+	<div class="modal-backdrop" role="presentation" onclick={closeInfo}>
 		<div
 			class="modal-card"
 			role="dialog"
@@ -148,21 +141,26 @@
 			onkeydown={(e) => e.stopPropagation()}
 		>
 			<div class="modal-icon-wrap">
-				<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-					<circle cx="12" cy="12" r="10"/>
-					<line x1="12" y1="16" x2="12" y2="12"/>
-					<line x1="12" y1="8" x2="12.01" y2="8"/>
+				<svg
+					width="28"
+					height="28"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<circle cx="12" cy="12" r="10" />
+					<line x1="12" y1="16" x2="12" y2="12" />
+					<line x1="12" y1="8" x2="12.01" y2="8" />
 				</svg>
 			</div>
 
 			<h2 id="modal-title" class="modal-title">Vet Crew</h2>
 			<p class="modal-message">{langStore.t('dev_warning')}</p>
 
-			<button
-				type="button"
-				class="modal-close-btn"
-				onclick={closeInfo}
-			>
+			<button type="button" class="modal-close-btn" onclick={closeInfo}>
 				{langStore.t('dev_warning_close')}
 			</button>
 		</div>
@@ -361,7 +359,9 @@
 		flex-direction: column;
 		align-items: center;
 		text-align: center;
-		box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(56, 189, 248, 0.18);
+		box-shadow:
+			0 20px 50px rgba(0, 0, 0, 0.5),
+			0 0 30px rgba(56, 189, 248, 0.18);
 		animation: popIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 	}
 
@@ -415,8 +415,12 @@
 	}
 
 	@keyframes fadeIn {
-		from { opacity: 0; }
-		to { opacity: 1; }
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
 	}
 
 	@keyframes popIn {

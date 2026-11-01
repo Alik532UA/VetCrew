@@ -11,7 +11,7 @@
 
 	let { compact = false, onclick }: Props = $props();
 
-	// Reactive media query abstractions (§ 1.5)
+	// Reactive media query abstractions (В§ 1.5)
 	const isMobile = new MediaQuery('(max-width: 768px), (pointer: coarse)');
 	const prefersReducedMotion = new MediaQuery('(prefers-reduced-motion: reduce)');
 
@@ -34,7 +34,7 @@
 	let targetGlowX = $state(50);
 	let targetGlowY = $state(50);
 
-	// Static logo geometry and definitions (§ 1.3 - separated from dynamic transform state)
+	// Static logo geometry and definitions (В§ 1.3 - separated from dynamic transform state)
 	const pawToes = [
 		logoPaths['paw-toe-left'],
 		logoPaths['paw-toe-center-left'],
@@ -107,7 +107,6 @@
 
 	onMount(() => {
 		let animId: number;
-		let lastTime = performance.now();
 
 		let hasOrientation = false;
 		let tiltNormX = 0; // -1 to +1
@@ -123,7 +122,13 @@
 		}
 
 		// Device orientation setup
-		const DeviceOrientation = browser ? (window as unknown as { DeviceOrientationEvent?: { requestPermission?: () => Promise<string> } }).DeviceOrientationEvent : null;
+		const DeviceOrientation = browser
+			? (
+					window as unknown as {
+						DeviceOrientationEvent?: { requestPermission?: () => Promise<string> };
+					}
+				).DeviceOrientationEvent
+			: null;
 		if (DeviceOrientation && typeof DeviceOrientation.requestPermission !== 'function') {
 			window.addEventListener('deviceorientation', handleOrientation, { passive: true });
 		}
@@ -188,19 +193,24 @@
 				return;
 			}
 
-			lastTime = time;
 			const idleT = time * 0.001;
 
-			let targetTiltX = 0;
-			let targetTiltY = 0;
+			let targetTiltX: number;
+			let targetTiltY: number;
 
 			if (isMobile.current) {
 				// MOBILE MODE:
 				targetGlowX = 50 + Math.sin(idleT * 0.8) * 22;
 				targetGlowY = 50 + Math.cos(idleT * 0.6) * 18;
 
-				document.documentElement.style.setProperty('--mouse-x', `${50 + Math.sin(idleT * 0.5) * 15}%`);
-				document.documentElement.style.setProperty('--mouse-y', `${50 + Math.cos(idleT * 0.4) * 12}%`);
+				document.documentElement.style.setProperty(
+					'--mouse-x',
+					`${50 + Math.sin(idleT * 0.5) * 15}%`
+				);
+				document.documentElement.style.setProperty(
+					'--mouse-y',
+					`${50 + Math.cos(idleT * 0.4) * 12}%`
+				);
 
 				const breathTiltX = Math.sin(idleT * 0.7) * 3.2;
 				const breathTiltY = Math.cos(idleT * 0.5) * 3.2;
@@ -236,7 +246,8 @@
 				// Vet Crew text
 				const textWave = Math.sin(time * 0.0018 + textVetCrew.phase) * 2.0;
 				textVetCrewTransform.targetY = textWave;
-				textVetCrewTransform.currY += (textVetCrewTransform.targetY - textVetCrewTransform.currY) * 0.08;
+				textVetCrewTransform.currY +=
+					(textVetCrewTransform.targetY - textVetCrewTransform.currY) * 0.08;
 			} else {
 				// DESKTOP MODE:
 				let targetNormX = normX;
@@ -330,8 +341,10 @@
 						textVetCrewTransform.targetScale = 1;
 						textVetCrewTransform.targetY = idleWave;
 					}
-					textVetCrewTransform.currScale += (textVetCrewTransform.targetScale - textVetCrewTransform.currScale) * 0.1;
-					textVetCrewTransform.currY += (textVetCrewTransform.targetY - textVetCrewTransform.currY) * 0.1;
+					textVetCrewTransform.currScale +=
+						(textVetCrewTransform.targetScale - textVetCrewTransform.currScale) * 0.1;
+					textVetCrewTransform.currY +=
+						(textVetCrewTransform.targetY - textVetCrewTransform.currY) * 0.1;
 				}
 			}
 
@@ -362,7 +375,7 @@
 <div
 	class="logo-container"
 	class:is-compact={compact}
-	onclick={onclick}
+	{onclick}
 	role="button"
 	tabindex="0"
 	onkeydown={(e) => {
@@ -375,7 +388,9 @@
 >
 	<div
 		class="logo-stage"
-		style="transform: perspective(1200px) rotateX({smoothTiltX.toFixed(2)}deg) rotateY({smoothTiltY.toFixed(2)}deg);"
+		style="transform: perspective(1200px) rotateX({smoothTiltX.toFixed(
+			2
+		)}deg) rotateY({smoothTiltY.toFixed(2)}deg);"
 	>
 		<svg
 			bind:this={svgElement}
@@ -406,7 +421,13 @@
 
 				<!-- Soft shadow under the paw -->
 				<filter id="paw-shadow" x="-10%" y="-10%" width="120%" height="120%">
-					<feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.32" />
+					<feDropShadow
+						dx="0"
+						dy="8"
+						stdDeviation="12"
+						flood-color="#000000"
+						flood-opacity="0.32"
+					/>
 				</filter>
 			</defs>
 
@@ -437,7 +458,10 @@
 				<g id="paw" fill="var(--logo-paw, #ffffff)" filter="url(#paw-shadow)">
 					{#each toes as toe (toe.def.id)}
 						<g
-							transform="translate({toe.currX.toFixed(2)}, {toe.currY.toFixed(2)}) translate({toe.def.cx}, {toe.def.cy}) rotate({toe.currRot.toFixed(2)}) scale({toe.currScale.toFixed(3)}) translate(-{toe.def.cx}, -{toe.def.cy})"
+							transform="translate({toe.currX.toFixed(2)}, {toe.currY.toFixed(2)}) translate({toe
+								.def.cx}, {toe.def.cy}) rotate({toe.currRot.toFixed(
+								2
+							)}) scale({toe.currScale.toFixed(3)}) translate(-{toe.def.cx}, -{toe.def.cy})"
 						>
 							<path id={toe.def.id} d={toe.def.d} />
 						</g>
@@ -445,7 +469,11 @@
 
 					<!-- Paw Pad -->
 					<g
-						transform="translate({padTransform.currX.toFixed(2)}, {padTransform.currY.toFixed(2)}) translate({pawPad.cx}, {pawPad.cy}) scale({padTransform.currScale.toFixed(3)}) translate(-{pawPad.cx}, -{pawPad.cy})"
+						transform="translate({padTransform.currX.toFixed(2)}, {padTransform.currY.toFixed(
+							2
+						)}) translate({pawPad.cx}, {pawPad.cy}) scale({padTransform.currScale.toFixed(
+							3
+						)}) translate(-{pawPad.cx}, -{pawPad.cy})"
 					>
 						<path id={pawPad.id} d={pawPad.d} />
 					</g>
@@ -453,7 +481,11 @@
 
 				<!-- Text: VET CREW -->
 				<g
-					transform="translate(0, {textVetCrewTransform.currY.toFixed(2)}) translate({textVetCrew.cx}, {textVetCrew.cy}) scale({textVetCrewTransform.currScale.toFixed(3)}) translate(-{textVetCrew.cx}, -{textVetCrew.cy})"
+					transform="translate(0, {textVetCrewTransform.currY.toFixed(
+						2
+					)}) translate({textVetCrew.cx}, {textVetCrew.cy}) scale({textVetCrewTransform.currScale.toFixed(
+						3
+					)}) translate(-{textVetCrew.cx}, -{textVetCrew.cy})"
 				>
 					<path id="text-vet-crew" fill="var(--logo-vet-crew, #ffb327)" d={textVetCrew.d} />
 				</g>

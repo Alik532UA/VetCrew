@@ -88,7 +88,8 @@
 	<div class="service-report-fallback-wrapper">
 		<div class="fallback-header">
 			<span>Діагностичний звіт</span>
-			<button type="button" class="fallback-close" onclick={() => (fallbackReport = null)}>✕</button>
+			<button type="button" class="fallback-close" onclick={() => (fallbackReport = null)}>✕</button
+			>
 		</div>
 		<textarea class="service-report-fallback" readonly value={fallbackReport}></textarea>
 	</div>
@@ -103,7 +104,9 @@
 		class:copied
 		onclick={copyReport}
 		aria-label="Копіювати звіт діагностики — v{APP_VERSION}"
-		title="Скопіювати звіт діагностики (v{APP_VERSION}){hasUpdate ? ` — доступна нова версія v${logService.servedVersion}` : ''}"
+		title="Скопіювати звіт діагностики (v{APP_VERSION}){hasUpdate
+			? ` — доступна нова версія v${logService.servedVersion}`
+			: ''}"
 		data-testid="service-badge-btn"
 	>
 		{#if copied}
@@ -117,7 +120,8 @@
 		{/if}
 		<span class="version-text">v{APP_VERSION}</span>
 		{#if hasUpdate}
-			<span class="update-badge" title="Доступна нова версія: v{logService.servedVersion}">upd</span>
+			<span class="update-badge" title="Доступна нова версія: v{logService.servedVersion}">upd</span
+			>
 		{/if}
 	</button>
 {/if}
@@ -145,7 +149,10 @@
 		user-select: none;
 		-webkit-user-select: none;
 		font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-		transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, border-color 0.2s ease;
+		transition:
+			transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+			background-color 0.2s ease,
+			border-color 0.2s ease;
 	}
 
 	.service-badge:hover {

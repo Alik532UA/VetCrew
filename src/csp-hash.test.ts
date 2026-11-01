@@ -34,7 +34,10 @@ const cspHashes: string[] = (
 
 describe('CSP: хеш інлайн-скрипта збігається з тим, що обчислить браузер', () => {
 	it('перевірка жива: інлайн-скрипт знайдено і в CSP є sha256', () => {
-		expect(inlineScripts().length, 'у app.html немає інлайн-скриптів — хешувати нічого').toBeGreaterThan(0);
+		expect(
+			inlineScripts().length,
+			'у app.html немає інлайн-скриптів — хешувати нічого'
+		).toBeGreaterThan(0);
 		expect(cspHashes.length, 'у script-src немає жодного sha256').toBeGreaterThan(0);
 	});
 
@@ -44,7 +47,9 @@ describe('CSP: хеш інлайн-скрипта збігається з тим
 		);
 		const head = html.indexOf('%sveltekit.head%');
 		expect(head, 'у app.html немає %sveltekit.head%').toBeGreaterThanOrEqual(0);
-		const above = [...html.matchAll(/<script\b[^>]*>/g)].filter((m) => (m.index ?? 0) < head).map((m) => m[0]);
+		const above = [...html.matchAll(/<script\b[^>]*>/g)]
+			.filter((m) => (m.index ?? 0) < head)
+			.map((m) => m[0]);
 		expect(above, 'скрипт вище %sveltekit.head% політикою не покритий').toEqual([]);
 	});
 
@@ -52,7 +57,10 @@ describe('CSP: хеш інлайн-скрипта збігається з тим
 		const raw = readFileSync('src/app.html', 'utf8');
 		const comments = [...raw.matchAll(/<!--[\s\S]*?-->/g)].map((m) => m[0]);
 		for (const tag of ['%sveltekit.head%', '%sveltekit.body%']) {
-			expect(comments.filter((comment) => comment.includes(tag)), `${tag} у коментарі app.html`).toEqual([]);
+			expect(
+				comments.filter((comment) => comment.includes(tag)),
+				`${tag} у коментарі app.html`
+			).toEqual([]);
 			expect(raw.split(tag).length - 1, `${tag} мусить стояти в app.html рівно один раз`).toBe(1);
 		}
 	});
@@ -92,4 +100,3 @@ describe('вердикт не залежить від переносів ряд�
 		expect(browserSees('a\rb')).toEqual('a\nb');
 	});
 });
-

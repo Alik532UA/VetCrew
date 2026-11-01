@@ -67,14 +67,16 @@ export function createKeySequence(options: {
 					: (input as KeyStroke);
 
 			// Затиснута клавіша — одне натискання, а набір у полі — не жест і не скидання.
-			if (stroke.repeat || isEditableTarget(stroke.target) || MODIFIER.test(stroke.code)) return false;
+			if (stroke.repeat || isEditableTarget(stroke.target) || MODIFIER.test(stroke.code))
+				return false;
 			if (stroke.letter !== options.letter || stroke.ctrlKey || stroke.altKey || stroke.metaKey) {
 				reset();
 				return false;
 			}
 			count += 1;
 			if (timer !== undefined) clearTimeout(timer);
-			const threshold = typeof options.threshold === 'function' ? options.threshold() : options.threshold;
+			const threshold =
+				typeof options.threshold === 'function' ? options.threshold() : options.threshold;
 			if (count >= threshold) {
 				reset();
 				options.onComplete();
@@ -117,4 +119,3 @@ export function listenForSequences(...sequences: KeySequence[]): () => void {
 		for (const sequence of sequences) sequence.reset();
 	};
 }
-

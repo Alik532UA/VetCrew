@@ -22,4 +22,3 @@ export async function fetchServedVersion(signal?: AbortSignal): Promise<string |
 		return null;
 	}
 }
-

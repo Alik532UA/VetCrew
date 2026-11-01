@@ -33,9 +33,10 @@ describe('своє на спільному origin (DEBUGGING § 3.5)', () => {
 
 	it('реєстрації: лише рівно свій scope', () => {
 		expect(isOwnRegistration(OWN, OWN)).toBe(true);
-		expect(isOwnRegistration(`${HOST}/VetCrew/dev/`, OWN), 'превʼю вкладене у свій шлях').toBe(false);
+		expect(isOwnRegistration(`${HOST}/VetCrew/dev/`, OWN), 'превʼю вкладене у свій шлях').toBe(
+			false
+		);
 		expect(isOwnRegistration(`${HOST}/OtherApp/`, OWN)).toBe(false);
 		expect(isOwnRegistration(`${HOST}/`, OWN)).toBe(false);
 	});
 });
-

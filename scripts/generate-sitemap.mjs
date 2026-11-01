@@ -47,7 +47,8 @@ try {
 
 	const urls = pages
 		.map(
-			(p) => `\t<url>\n\t\t<loc>${p.loc}</loc>\n\t\t<changefreq>weekly</changefreq>\n\t\t<priority>${p.priority}</priority>\n\t</url>`
+			(p) =>
+				`\t<url>\n\t\t<loc>${p.loc}</loc>\n\t\t<changefreq>weekly</changefreq>\n\t\t<priority>${p.priority}</priority>\n\t</url>`
 		)
 		.join('\n');
 

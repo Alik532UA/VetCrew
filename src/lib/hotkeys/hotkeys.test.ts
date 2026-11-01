@@ -1,13 +1,6 @@
-// src/lib/hotkeys/hotkeys.test.ts — тести системи гарячих клавіш (HOTKEYS-v10)
+// src/lib/hotkeys/hotkeys.test.ts вЂ” С‚РµСЃС‚Рё СЃРёСЃС‚РµРјРё РіР°СЂСЏС‡РёС… РєР»Р°РІС–С€ (HOTKEYS-v10)
 import { describe, expect, it, vi } from 'vitest';
-import {
-	HotkeyService,
-	isControlActivation,
-	isTypingTarget,
-	shortcutLetter,
-	KEYMAP,
-	POSITIONAL
-} from './hotkeys';
+import { HotkeyService, isControlActivation, isTypingTarget, shortcutLetter } from './hotkeys';
 
 function createMockEvent(
 	init: {
@@ -44,28 +37,28 @@ function createMockEvent(
 }
 
 describe('hotkeys (HOTKEYS-v10)', () => {
-	describe('shortcutLetter (§ 2.3 — розкладко-стійкість)', () => {
-		it('визначає латинську літеру безпосередньо з key', () => {
+	describe('shortcutLetter (В§ 2.3 вЂ” СЂРѕР·РєР»Р°РґРєРѕ-СЃС‚С–Р№РєС–СЃС‚СЊ)', () => {
+		it('РІРёР·РЅР°С‡Р°С” Р»Р°С‚РёРЅСЃСЊРєСѓ Р»С–С‚РµСЂСѓ Р±РµР·РїРѕСЃРµСЂРµРґРЅСЊРѕ Р· key', () => {
 			expect(shortcutLetter({ key: 't', code: 'KeyT' })).toBe('t');
 			expect(shortcutLetter({ key: 'T', code: 'KeyT' })).toBe('t');
 			expect(shortcutLetter({ key: 'f', code: 'KeyF' })).toBe('f');
 		});
 
-		it('визначає фізичну літеру за кодом, якщо увімкнена кирилиця (наприклад, "е" -> "t")', () => {
-			expect(shortcutLetter({ key: 'е', code: 'KeyT' })).toBe('t');
-			expect(shortcutLetter({ key: 'д', code: 'KeyL' })).toBe('l');
-			expect(shortcutLetter({ key: 'а', code: 'KeyF' })).toBe('f');
+		it('РІРёР·РЅР°С‡Р°С” С„С–Р·РёС‡РЅСѓ Р»С–С‚РµСЂСѓ Р·Р° РєРѕРґРѕРј, СЏРєС‰Рѕ СѓРІС–РјРєРЅРµРЅР° РєРёСЂРёР»РёС†СЏ (РЅР°РїСЂРёРєР»Р°Рґ, "Рµ" -> "t")', () => {
+			expect(shortcutLetter({ key: 'Рµ', code: 'KeyT' })).toBe('t');
+			expect(shortcutLetter({ key: 'Рґ', code: 'KeyL' })).toBe('l');
+			expect(shortcutLetter({ key: 'Р°', code: 'KeyF' })).toBe('f');
 		});
 
-		it('повертає null для спеціальних клавіш і цифр', () => {
+		it('РїРѕРІРµСЂС‚Р°С” null РґР»СЏ СЃРїРµС†С–Р°Р»СЊРЅРёС… РєР»Р°РІС–С€ С– С†РёС„СЂ', () => {
 			expect(shortcutLetter({ key: 'Escape', code: 'Escape' })).toBeNull();
 			expect(shortcutLetter({ key: ' ', code: 'Space' })).toBeNull();
 			expect(shortcutLetter({ key: '1', code: 'Digit1' })).toBeNull();
 		});
 	});
 
-	describe('isTypingTarget (§ 2.1 — ізоляція полів вводу)', () => {
-		it('ігнорує гарячі клавіші у полях вводу', () => {
+	describe('isTypingTarget (В§ 2.1 вЂ” С–Р·РѕР»СЏС†С–СЏ РїРѕР»С–РІ РІРІРѕРґСѓ)', () => {
+		it('С–РіРЅРѕСЂСѓС” РіР°СЂСЏС‡С– РєР»Р°РІС–С€С– Сѓ РїРѕР»СЏС… РІРІРѕРґСѓ', () => {
 			const inputEl = {
 				closest: (selector: string) => (selector.includes('input') ? {} : null)
 			};
@@ -73,7 +66,7 @@ describe('hotkeys (HOTKEYS-v10)', () => {
 			expect(isTypingTarget(event)).toBe(true);
 		});
 
-		it('дозволяє клавіші на звичайних блоках', () => {
+		it('РґРѕР·РІРѕР»СЏС” РєР»Р°РІС–С€С– РЅР° Р·РІРёС‡Р°Р№РЅРёС… Р±Р»РѕРєР°С…', () => {
 			const divEl = {
 				closest: () => null
 			};
@@ -82,8 +75,8 @@ describe('hotkeys (HOTKEYS-v10)', () => {
 		});
 	});
 
-	describe('isControlActivation (§ 2.4 — ненавмисне перехоплення Space/Enter)', () => {
-		it('розпізнає активацію кнопки через Space або Enter', () => {
+	describe('isControlActivation (В§ 2.4 вЂ” РЅРµРЅР°РІРјРёСЃРЅРµ РїРµСЂРµС…РѕРїР»РµРЅРЅСЏ Space/Enter)', () => {
+		it('СЂРѕР·РїС–Р·РЅР°С” Р°РєС‚РёРІР°С†С–СЋ РєРЅРѕРїРєРё С‡РµСЂРµР· Space Р°Р±Рѕ Enter', () => {
 			const btnEl = {
 				closest: (selector: string) => (selector.includes('button') ? {} : null)
 			};
@@ -94,7 +87,7 @@ describe('hotkeys (HOTKEYS-v10)', () => {
 			expect(isControlActivation(enterEvent)).toBe(true);
 		});
 
-		it('не блокує навігаційні літери чи Space поза кнопками', () => {
+		it('РЅРµ Р±Р»РѕРєСѓС” РЅР°РІС–РіР°С†С–Р№РЅС– Р»С–С‚РµСЂРё С‡Рё Space РїРѕР·Р° РєРЅРѕРїРєР°РјРё', () => {
 			const divEl = { closest: () => null };
 			const spaceEvent = createMockEvent({ code: 'Space', target: divEl });
 			expect(isControlActivation(spaceEvent)).toBe(false);
@@ -104,8 +97,8 @@ describe('hotkeys (HOTKEYS-v10)', () => {
 		});
 	});
 
-	describe('HotkeyService (§ 3.1 — диспетчеризація та шари)', () => {
-		it('викликає зареєстровану дію і блокує дефолтну поведінку при успіху', () => {
+	describe('HotkeyService (В§ 3.1 вЂ” РґРёСЃРїРµС‚С‡РµСЂРёР·Р°С†С–СЏ С‚Р° С€Р°СЂРё)', () => {
+		it('РІРёРєР»РёРєР°С” Р·Р°СЂРµС”СЃС‚СЂРѕРІР°РЅСѓ РґС–СЋ С– Р±Р»РѕРєСѓС” РґРµС„РѕР»С‚РЅСѓ РїРѕРІРµРґС–РЅРєСѓ РїСЂРё СѓСЃРїС–С…Сѓ', () => {
 			const themeAction = vi.fn(() => true);
 			const service = new HotkeyService({ theme: themeAction });
 
@@ -116,7 +109,7 @@ describe('hotkeys (HOTKEYS-v10)', () => {
 			expect(event.defaultPrevented).toBe(true);
 		});
 
-		it('не блокує defaultPrevented, якщо дія повертає false', () => {
+		it('РЅРµ Р±Р»РѕРєСѓС” defaultPrevented, СЏРєС‰Рѕ РґС–СЏ РїРѕРІРµСЂС‚Р°С” false', () => {
 			const dummyAction = vi.fn(() => false);
 			const service = new HotkeyService({ theme: dummyAction });
 
@@ -127,7 +120,7 @@ describe('hotkeys (HOTKEYS-v10)', () => {
 			expect(event.defaultPrevented).toBe(false);
 		});
 
-		it('ігнорує комбінації із системними модифікаторами (Ctrl, Alt, Meta)', () => {
+		it('С–РіРЅРѕСЂСѓС” РєРѕРјР±С–РЅР°С†С–С— С–Р· СЃРёСЃС‚РµРјРЅРёРјРё РјРѕРґРёС„С–РєР°С‚РѕСЂР°РјРё (Ctrl, Alt, Meta)', () => {
 			const themeAction = vi.fn(() => true);
 			const service = new HotkeyService({ theme: themeAction });
 
@@ -140,7 +133,7 @@ describe('hotkeys (HOTKEYS-v10)', () => {
 			expect(themeAction).not.toHaveBeenCalled();
 		});
 
-		it('підтримує стек шарів (pushLayer) з пріоритетом верхнього шару', () => {
+		it('РїС–РґС‚СЂРёРјСѓС” СЃС‚РµРє С€Р°СЂС–РІ (pushLayer) Р· РїСЂС–РѕСЂРёС‚РµС‚РѕРј РІРµСЂС…РЅСЊРѕРіРѕ С€Р°СЂСѓ', () => {
 			const globalTheme = vi.fn(() => true);
 			const service = new HotkeyService({ theme: globalTheme });
 
@@ -161,7 +154,7 @@ describe('hotkeys (HOTKEYS-v10)', () => {
 			expect(layerAction).toHaveBeenCalledTimes(1);
 			expect(globalTheme).not.toHaveBeenCalled();
 
-			// Видалення шару відновлює поведінку базових дій
+			// Р’РёРґР°Р»РµРЅРЅСЏ С€Р°СЂСѓ РІС–РґРЅРѕРІР»СЋС” РїРѕРІРµРґС–РЅРєСѓ Р±Р°Р·РѕРІРёС… РґС–Р№
 			removeLayer();
 			const event2 = createMockEvent({ key: 't', code: 'KeyT' });
 			service.handle(event2);
@@ -169,7 +162,7 @@ describe('hotkeys (HOTKEYS-v10)', () => {
 			expect(globalTheme).toHaveBeenCalledTimes(1);
 		});
 
-		it('викликає перехід на секції за цифровими клавішами 1, 2, 3', () => {
+		it('РІРёРєР»РёРєР°С” РїРµСЂРµС…С–Рґ РЅР° СЃРµРєС†С–С— Р·Р° С†РёС„СЂРѕРІРёРјРё РєР»Р°РІС–С€Р°РјРё 1, 2, 3', () => {
 			const sec1 = vi.fn(() => true);
 			const sec2 = vi.fn(() => true);
 			const sec3 = vi.fn(() => true);
@@ -189,7 +182,7 @@ describe('hotkeys (HOTKEYS-v10)', () => {
 			expect(sec3).toHaveBeenCalledTimes(1);
 		});
 
-		it('обробляє Escape через глобальну або шарову дію', () => {
+		it('РѕР±СЂРѕР±Р»СЏС” Escape С‡РµСЂРµР· РіР»РѕР±Р°Р»СЊРЅСѓ Р°Р±Рѕ С€Р°СЂРѕРІСѓ РґС–СЋ', () => {
 			const escapeAction = vi.fn(() => true);
 			const service = new HotkeyService({ escape: escapeAction });
 

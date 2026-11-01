@@ -8,7 +8,11 @@ export function scopeFor(origin: string, basePath: string): string {
 }
 
 /** Свій кеш: власний префікс АБО власний `scope` суфіксом — так іменує кеші Workbox. */
-export function isOwnCacheName(name: string, scope: string, prefix: string = STORAGE_PREFIX): boolean {
+export function isOwnCacheName(
+	name: string,
+	scope: string,
+	prefix: string = STORAGE_PREFIX
+): boolean {
 	return name.startsWith(prefix) || name.endsWith(scope);
 }
 
@@ -22,7 +26,9 @@ const ownScope = (): string => scopeFor(window.location.origin, base);
 export async function unregisterOwnServiceWorkers(): Promise<number> {
 	if (typeof navigator === 'undefined' || !('serviceWorker' in navigator)) return 0;
 	const scope = ownScope();
-	const own = (await navigator.serviceWorker.getRegistrations()).filter((r) => isOwnRegistration(r.scope, scope));
+	const own = (await navigator.serviceWorker.getRegistrations()).filter((r) =>
+		isOwnRegistration(r.scope, scope)
+	);
 	await Promise.all(own.map((registration) => registration.unregister()));
 	return own.length;
 }
@@ -37,7 +43,12 @@ export async function deleteOwnCaches(): Promise<number> {
 
 /** Бази IndexedDB — лише з префіксом (STORAGE-NAMESPACE § 7); без `databases()` нічого не видаляється. */
 export async function deleteOwnDatabases(): Promise<number> {
-	if (typeof window === 'undefined' || !('indexedDB' in window) || typeof indexedDB.databases !== 'function') return 0;
+	if (
+		typeof window === 'undefined' ||
+		!('indexedDB' in window) ||
+		typeof indexedDB.databases !== 'function'
+	)
+		return 0;
 	const own = (await indexedDB.databases())
 		.map((db) => db.name ?? '')
 		.filter((name) => name.startsWith(STORAGE_PREFIX));
@@ -53,4 +64,3 @@ export async function deleteOwnDatabases(): Promise<number> {
 	);
 	return own.length;
 }
-

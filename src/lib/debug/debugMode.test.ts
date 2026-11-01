@@ -21,4 +21,3 @@ describe('debugMode (DEBUGGING-v10 § 2.1)', () => {
 		expect(debugMode.pressesToToggle).toBe(HIDE_PRESSES);
 	});
 });
-

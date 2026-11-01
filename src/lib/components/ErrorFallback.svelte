@@ -44,11 +44,7 @@
 				<span>{isUk ? 'Спробувати знову' : 'Try again'}</span>
 			</button>
 
-			<a
-				href="{base || '/'}"
-				class="action-btn home-link"
-				data-testid="render-error-home-link"
-			>
+			<a href={base || '/'} class="action-btn home-link" data-testid="render-error-home-link">
 				<Home size={16} aria-hidden="true" />
 				<span>{isUk ? 'На головну' : 'Go Home'}</span>
 			</a>
@@ -137,7 +133,10 @@
 		font-weight: 700;
 		text-decoration: none;
 		cursor: pointer;
-		transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, border-color 0.2s ease;
+		transition:
+			transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+			background-color 0.2s ease,
+			border-color 0.2s ease;
 	}
 
 	.retry-btn {
@@ -166,4 +165,3 @@
 		transform: scale(0.98);
 	}
 </style>
-

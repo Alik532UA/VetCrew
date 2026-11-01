@@ -16,7 +16,10 @@ function clearOwnCookies(): number {
 }
 
 /** Складник під власним try: збій одного не скасовує решту. */
-async function step(name: string, run: () => number | boolean | Promise<number | boolean>): Promise<void> {
+async function step(
+	name: string,
+	run: () => number | boolean | Promise<number | boolean>
+): Promise<void> {
 	try {
 		logService.info('reset', `${name}: ${await run()} removed`);
 	} catch (error) {
@@ -35,4 +38,3 @@ export async function hardReset(): Promise<void> {
 		location.reload();
 	}
 }
-

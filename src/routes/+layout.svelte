@@ -83,7 +83,7 @@
 		padding: 8px 16px;
 		background: var(--panel-bg, #1a1a1a);
 		color: var(--text-primary, #ffffff);
-		border: 2px solid var(--accent, #93C84A);
+		border: 2px solid var(--accent, #93c84a);
 		border-radius: 8px;
 		font-weight: 700;
 		font-size: 0.85rem;

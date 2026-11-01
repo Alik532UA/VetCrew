@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { langStore } from '../lang.svelte';
-
 	interface Props {
 		state: 1 | 2 | 3;
 		onGoToState: (state: 1 | 2 | 3) => void;
@@ -9,14 +7,14 @@
 	let { state, onGoToState }: Props = $props();
 </script>
 
-<aside class="scroll-indicator" aria-label="Індикатор стану скролу">
+<aside class="scroll-indicator" aria-label="Р†РЅРґРёРєР°С‚РѕСЂ СЃС‚Р°РЅСѓ СЃРєСЂРѕР»Сѓ">
 	<button
 		type="button"
 		class="state-dot"
 		class:active={state === 1}
 		onclick={() => onGoToState(1)}
-		aria-label="Слайд 1: Головна"
-		title="Слайд 1: Головна"
+		aria-label="РЎР»Р°Р№Рґ 1: Р“РѕР»РѕРІРЅР°"
+		title="РЎР»Р°Р№Рґ 1: Р“РѕР»РѕРІРЅР°"
 	>
 		<span class="dot-inner"></span>
 	</button>
@@ -26,8 +24,8 @@
 		class="state-dot"
 		class:active={state === 2}
 		onclick={() => onGoToState(2)}
-		aria-label="Слайд 2: Контакти"
-		title="Слайд 2: Контакти"
+		aria-label="РЎР»Р°Р№Рґ 2: РљРѕРЅС‚Р°РєС‚Рё"
+		title="РЎР»Р°Р№Рґ 2: РљРѕРЅС‚Р°РєС‚Рё"
 	>
 		<span class="dot-inner"></span>
 	</button>
@@ -37,8 +35,8 @@
 		class="state-dot"
 		class:active={state === 3}
 		onclick={() => onGoToState(3)}
-		aria-label="Слайд 3: Меню та налаштування"
-		title="Слайд 3: Меню та налаштування"
+		aria-label="РЎР»Р°Р№Рґ 3: РњРµРЅСЋ С‚Р° РЅР°Р»Р°С€С‚СѓРІР°РЅРЅСЏ"
+		title="РЎР»Р°Р№Рґ 3: РњРµРЅСЋ С‚Р° РЅР°Р»Р°С€С‚СѓРІР°РЅРЅСЏ"
 	>
 		<span class="dot-inner"></span>
 	</button>

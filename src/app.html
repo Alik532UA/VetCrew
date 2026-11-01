@@ -23,14 +23,20 @@
 		<!-- Google Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+			rel="stylesheet"
+		/>
 
 		%sveltekit.head%
 		<script>
 			try {
-				const saved = localStorage.getItem('vetcrew_theme') || localStorage.getItem('vetcrew-dev_theme') || localStorage.getItem('theme');
+				const saved =
+					localStorage.getItem('vetcrew_theme') ||
+					localStorage.getItem('vetcrew-dev_theme') ||
+					localStorage.getItem('theme');
 				// ALWAYS default to 'light' regardless of system / browser prefers-color-scheme
-				const theme = (saved === 'dark' || saved === 'light') ? saved : 'light';
+				const theme = saved === 'dark' || saved === 'light' ? saved : 'light';
 				document.documentElement.setAttribute('data-theme', theme);
 				document.documentElement.classList.toggle('dark', theme === 'dark');
 				document.documentElement.classList.toggle('light', theme === 'light');

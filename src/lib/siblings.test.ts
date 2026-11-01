@@ -36,4 +36,3 @@ describe('siblings.ts — міжпроєктна екосистема', () => {
 		expect(urlUk).toBe('https://vet-crew-emergency.org/?lang=uk');
 	});
 });
-

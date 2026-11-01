@@ -44,11 +44,15 @@ export function isTypingTarget(event: KeyboardEvent): boolean {
 }
 
 export function isControlActivation(event: KeyboardEvent): boolean {
-	if (event.code !== 'Space' && event.code !== 'Enter' && event.code !== 'NumpadEnter') return false;
+	if (event.code !== 'Space' && event.code !== 'Enter' && event.code !== 'NumpadEnter')
+		return false;
 	return targetOf(event)?.closest(CONTROLS) != null;
 }
 
-export const NATIVE_ESCAPE = ['dialog:modal', '[popover]:popover-open:not([popover="manual" i])'] as const;
+export const NATIVE_ESCAPE = [
+	'dialog:modal',
+	'[popover]:popover-open:not([popover="manual" i])'
+] as const;
 
 export function nativeLayerOpen(doc?: Document | null): boolean {
 	if (!doc || typeof doc.querySelector !== 'function') return false;
@@ -95,7 +99,7 @@ export class HotkeyService {
 			if (doc && nativeLayerOpen(doc)) {
 				return false;
 			}
-			return top?.handle(event) ?? (this.actions['escape']?.() ?? false);
+			return top?.handle(event) ?? this.actions['escape']?.() ?? false;
 		}
 		if (isTypingTarget(event)) return false;
 		if (event.ctrlKey || event.metaKey || event.altKey) return false;
@@ -107,7 +111,11 @@ export class HotkeyService {
 		return action ? (this.actions[action]?.() ?? false) : false;
 	}
 
-	init(target: Document | Window = typeof document !== 'undefined' ? document : (null as unknown as Document)): () => void {
+	init(
+		target: Document | Window = typeof document !== 'undefined'
+			? document
+			: (null as unknown as Document)
+	): () => void {
 		if (!target) return () => {};
 		target.addEventListener('keydown', this.handle as EventListener);
 		return () => target.removeEventListener('keydown', this.handle as EventListener);

@@ -42,9 +42,10 @@ class ThemeStore {
 			if (metaTheme) {
 				metaTheme.setAttribute('content', this.current === 'dark' ? '#070e09' : '#f5f8f5');
 			}
-		} catch {}
+		} catch {
+			// optional in headless/test
+		}
 	}
 }
 
 export const themeStore = new ThemeStore();
-

@@ -40,10 +40,7 @@ if (!syncOnly) {
 }
 
 // 1. static/app-version.json
-writeFileSync(
-	staticVersionPath,
-	`${JSON.stringify({ version: newVersion }, null, '\t')}\n`
-);
+writeFileSync(staticVersionPath, `${JSON.stringify({ version: newVersion }, null, '\t')}\n`);
 
 // 2. src/lib/config/version.ts
 const tsContent = `/**
@@ -66,10 +63,13 @@ if (existsSync(viteConfigPath)) {
 
 // 4. Додаємо змінені файли в git stage
 try {
-	execSync('git add package.json package-lock.json static/app-version.json src/lib/config/version.ts', {
-		cwd: rootDir,
-		stdio: 'ignore'
-	});
+	execSync(
+		'git add package.json package-lock.json static/app-version.json src/lib/config/version.ts',
+		{
+			cwd: rootDir,
+			stdio: 'ignore'
+		}
+	);
 } catch {
 	// ігноруємо, якщо виконується поза git
 }

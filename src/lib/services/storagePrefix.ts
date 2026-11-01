@@ -9,4 +9,3 @@ const ENV = import.meta.env.VITE_ENV ?? (import.meta.env.DEV ? 'dev' : 'prod');
 
 export const STORAGE_PREFIX =
 	ENV === 'prod' ? PROJECT_PREFIX : `${PROJECT_PREFIX.slice(0, -1)}-${ENV}_`;
-

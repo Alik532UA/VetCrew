@@ -86,7 +86,9 @@ describe('аварійне скидання (DEBUGGING § 3.4)', () => {
 		expect(local.getItem(OWN_KEY)).toBeNull();
 		expect(local.getItem('neighbour_theme')).toBe('light');
 		expect(local.getItem(PREVIEW_KEY), 'дані превʼю — чужі').toBe('x');
-		expect(cookieWrites).toEqual([`${STORAGE_PREFIX}lang=; path=/VetCrew/; max-age=0; SameSite=Lax`]);
+		expect(cookieWrites).toEqual([
+			`${STORAGE_PREFIX}lang=; path=/VetCrew/; max-age=0; SameSite=Lax`
+		]);
 		expect(deletedCaches).toEqual([`workbox-precache-v2-${HOST}/VetCrew/`]);
 		expect(unregistered).toEqual(['/VetCrew/']);
 	});
@@ -98,4 +100,3 @@ describe('аварійне скидання (DEBUGGING § 3.4)', () => {
 		expect(reload).toHaveBeenCalledOnce();
 	});
 });
-

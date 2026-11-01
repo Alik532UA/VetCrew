@@ -140,10 +140,7 @@
 		url: 'https://alik532ua.github.io/VetCrew/',
 		logo: 'https://alik532ua.github.io/VetCrew/logo.svg',
 		image: 'https://alik532ua.github.io/VetCrew/logo.svg',
-		sameAs: [
-			'https://www.instagram.com/vet.crew/',
-			'https://vet-crew-donation.org'
-		],
+		sameAs: ['https://www.instagram.com/vet.crew/', 'https://vet-crew-donation.org'],
 		description:
 			langStore.current === 'uk'
 				? 'Vet Crew — міжнародна організація з порятунку, лікування та реабілітації диких і екзотичних тварин.'
@@ -152,20 +149,24 @@
 </script>
 
 <svelte:head>
-	<title>{langStore.current === 'uk' ? 'Vet Crew — Порятунок диких та екзотичних тварин' : 'Vet Crew — Wild & Exotic Animal Rescue'}</title>
+	<title
+		>{langStore.current === 'uk'
+			? 'Vet Crew — Порятунок диких та екзотичних тварин'
+			: 'Vet Crew — Wild & Exotic Animal Rescue'}</title
+	>
 	<meta
 		name="description"
-		content="{langStore.current === 'uk'
+		content={langStore.current === 'uk'
 			? 'Vet Crew — порятунок, лікування та реабілітація диких і екзотичних тварин. Підтримайте нашу місію.'
-			: 'Vet Crew — rescue, care, and rehabilitation of wild and exotic animals. Support our mission.'}"
+			: 'Vet Crew — rescue, care, and rehabilitation of wild and exotic animals. Support our mission.'}
 	/>
 	<link rel="canonical" href="https://alik532ua.github.io/VetCrew/" />
 	<meta property="og:url" content="https://alik532ua.github.io/VetCrew/" />
 	<meta
 		property="og:title"
-		content="{langStore.current === 'uk'
+		content={langStore.current === 'uk'
 			? 'Vet Crew — Порятунок диких та екзотичних тварин'
-			: 'Vet Crew — Wild & Exotic Animal Rescue'}"
+			: 'Vet Crew — Wild & Exotic Animal Rescue'}
 	/>
 	<meta
 		property="og:description"
@@ -176,9 +177,9 @@
 	<meta name="twitter:card" content="summary" />
 	<meta
 		name="twitter:title"
-		content="{langStore.current === 'uk'
+		content={langStore.current === 'uk'
 			? 'Vet Crew — Порятунок диких та екзотичних тварин'
-			: 'Vet Crew — Wild & Exotic Animal Rescue'}"
+			: 'Vet Crew — Wild & Exotic Animal Rescue'}
 	/>
 	<meta
 		name="twitter:description"
@@ -192,27 +193,18 @@
 
 <main id="main-content" tabindex="-1" class="page-container state-{scrollState}">
 	<!-- Central Hero SVG Logo with dynamic cursor reactivity -->
-	<section
-		class="hero-center state-{scrollState}"
-		aria-label="Vet Crew"
-	>
+	<section class="hero-center state-{scrollState}" aria-label="Vet Crew">
 		<VetCrewLogo />
 	</section>
 
 	<!-- Bottom Center Action Channels: Instagram, Donate, Info -->
-	<ContactLinks
-		isExpanded={scrollState === 2}
-		isShiftedUp={scrollState === 3}
-	/>
+	<ContactLinks isExpanded={scrollState === 2} isShiftedUp={scrollState === 3} />
 
 	<!-- Hidden Actions Panel ONLY in State 3 (Theme, Lang, Fullscreen) -->
 	<HiddenPanel isVisible={scrollState === 3} />
 
 	<!-- 3-State Cyclic Scroll Indicator on Right Edge -->
-	<ScrollIndicator
-		state={scrollState}
-		onGoToState={goToState}
-	/>
+	<ScrollIndicator state={scrollState} onGoToState={goToState} />
 </main>
 
 <style>

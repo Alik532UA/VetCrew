@@ -44,7 +44,7 @@ describe('серія натискань (DEBUGGING § 3.2)', () => {
 	});
 
 	it('натискання в полі вводу не зараховується і не збиває серію', () => {
-		const input = { closest: (sel: string) => sel.includes('input') ? {} : null };
+		const input = { closest: (sel: string) => (sel.includes('input') ? {} : null) };
 		const sequence = createKeySequence({ letter: 'v', threshold: 3, onComplete: vi.fn() });
 		sequence.handle(press('v'));
 		expect(sequence.count).toBe(1);
@@ -54,7 +54,12 @@ describe('серія натискань (DEBUGGING § 3.2)', () => {
 
 	it('таймаут скидає серію', () => {
 		vi.useFakeTimers();
-		const sequence = createKeySequence({ letter: 'v', threshold: 3, windowMs: 1000, onComplete: vi.fn() });
+		const sequence = createKeySequence({
+			letter: 'v',
+			threshold: 3,
+			windowMs: 1000,
+			onComplete: vi.fn()
+		});
 		sequence.handle(press('v'));
 		expect(sequence.count).toBe(1);
 		vi.advanceTimersByTime(1100);
@@ -93,4 +98,3 @@ describe('серія натискань (DEBUGGING § 3.2)', () => {
 		cleanup();
 	});
 });
-

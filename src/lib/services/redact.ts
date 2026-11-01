@@ -1,5 +1,6 @@
 // src/lib/services/redact.ts — одна редакція для журналу, звіту й телеметрії
-const SENSITIVE_KEY = /pass(?:word)?|token|secret|authorization|cookie|session|e-?mail|phone|api[-_]?key/i;
+const SENSITIVE_KEY =
+	/pass(?:word)?|token|secret|authorization|cookie|session|e-?mail|phone|api[-_]?key/i;
 const MASK = '[redacted]';
 /** Пошта, зокрема закодована в адресі чи тілі форми (`john%40example.com`). */
 const EMAIL = /\b([\w.%+-])[\w.%+-]*?(?:@|%40)([\w-]+(?:\.[\w-]+)*\.[a-z]{2,})\b/gi;
@@ -31,8 +32,12 @@ function redactText(text: string): string {
 				return address;
 			}
 		})
-		.replace(PAIR, (pair: string, lead: string, key: string) => (sensitive(key) ? `${lead}${key}=${MASK}` : pair))
-		.replace(JSON_PAIR, (pair: string, head: string, key: string) => (sensitive(key) ? `${head}"${MASK}"` : pair))
+		.replace(PAIR, (pair: string, lead: string, key: string) =>
+			sensitive(key) ? `${lead}${key}=${MASK}` : pair
+		)
+		.replace(JSON_PAIR, (pair: string, head: string, key: string) =>
+			sensitive(key) ? `${head}"${MASK}"` : pair
+		)
 		.replace(EMAIL, (_, first: string, domain: string) => `${first}***@${domain}`);
 }
 
@@ -69,10 +74,12 @@ export function redact(value: unknown, ancestors: WeakSet<object> = new WeakSet(
 		const proto = Object.getPrototypeOf(value);
 		if (proto !== Object.prototype && proto !== null) return redactText(String(value));
 		return Object.fromEntries(
-			Object.entries(value).map(([key, item]) => [key, SENSITIVE_KEY.test(key) ? MASK : redact(item, ancestors)])
+			Object.entries(value).map(([key, item]) => [
+				key,
+				SENSITIVE_KEY.test(key) ? MASK : redact(item, ancestors)
+			])
 		);
 	} finally {
 		ancestors.delete(value);
 	}
 }
-

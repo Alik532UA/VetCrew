@@ -25,7 +25,9 @@ const inlineScriptHashes = [
 ].map(
 	(match) =>
 		/** @type {`sha256-${string}`} */ (
-			`sha256-${createHash('sha256').update((match[1] ?? '').replace(/\r\n/g, '\n')).digest('base64')}`
+			`sha256-${createHash('sha256')
+				.update((match[1] ?? '').replace(/\r\n/g, '\n'))
+				.digest('base64')}`
 		)
 );
 

@@ -20,4 +20,3 @@ export const handleError: HandleClientError = async ({ error, event, status, mes
 		return;
 	}
 };
-

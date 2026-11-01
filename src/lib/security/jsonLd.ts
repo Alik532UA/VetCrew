@@ -15,4 +15,3 @@ export function jsonLdScript(data: object): string {
 	const json = JSON.stringify(data).replace(/[<>&\u{2028}\u{2029}]/gu, (ch) => ESCAPES[ch] ?? ch);
 	return `<script type="application/ld+json">${json}</script>`;
 }
-

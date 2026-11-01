@@ -20,7 +20,12 @@ const MIRRORED = 200;
 const MIRROR_KEY = 'log';
 
 /** Вивід info у консоль за категорією — лише в dev; у production консоль бачить тільки error. */
-const CONSOLE_CATEGORIES: Record<string, boolean> = { ui: true, network: true, storage: false, i18n: false };
+const CONSOLE_CATEGORIES: Record<string, boolean> = {
+	ui: true,
+	network: true,
+	storage: false,
+	i18n: false
+};
 
 const safeJson = (value: unknown): string => {
 	try {
@@ -80,7 +85,8 @@ class LogService {
 		this.#persisting = true;
 		try {
 			// false — квота чи заблоковане сховище: дзеркало вимикається до кінця сесії, буфер працює.
-			if (!safeSessionStorage.set(MIRROR_KEY, safeJson(this.#entries.slice(-MIRRORED)))) this.#mirror = false;
+			if (!safeSessionStorage.set(MIRROR_KEY, safeJson(this.#entries.slice(-MIRRORED))))
+				this.#mirror = false;
 		} finally {
 			this.#persisting = false;
 		}
@@ -112,4 +118,3 @@ class LogService {
 }
 
 export const logService = new LogService();
-
