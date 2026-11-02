@@ -7,6 +7,7 @@ export default mergeConfig(
 		test: {
 			include: ['src/**/*.{test,spec}.ts'],
 			environment: 'node',
+			pool: 'forks',
 			expect: { requireAssertions: true }
 		}
 	})

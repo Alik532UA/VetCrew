@@ -128,6 +128,7 @@
 - **Канонічний розподіл `src/lib/`**:
   - `src/lib/controllers/`: реактивні класи стану на базі Svelte 5 Runes (`lang.svelte.ts`, `theme.svelte.ts`).
   - `src/lib/config/`: системні константи та налаштування середовища (`version.ts`).
+  - `src/lib/data/`: статичні типізовані реєстри даних (`initiatives.ts` — благодійні програми, місії порятунку та метрики впливу), що гарантують легку масштабованість порталу.
   - `src/lib/security/`: безпека даних та екранування (`jsonLd.ts`).
   - `src/lib/services/`: нереактивні сервіси та адаптери (`storage.ts`, `fullscreen.ts`, `logService.svelte.ts`).
   - `src/lib/utils/`: чисті допоміжні функції (`staleBuild.ts`).
