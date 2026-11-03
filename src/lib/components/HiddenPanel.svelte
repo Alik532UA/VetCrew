@@ -266,7 +266,7 @@
 		bottom: 1.5rem;
 		left: 0;
 		right: 0;
-		z-index: 25;
+		z-index: 70;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -403,6 +403,32 @@
 		transform: translateY(-2px);
 	}
 
+	/* LIGHT THEME DEV BUTTON: Rich dark amber for high contrast & perfect readability */
+	:global([data-theme='light']) .dev-item,
+	:global([data-theme='light']) .dev-title {
+		color: #92400e;
+	}
+
+	:global([data-theme='light']) .dev-icon-box {
+		color: #92400e;
+		filter: drop-shadow(0 1px 2px rgba(146, 64, 14, 0.2));
+	}
+
+	:global([data-theme='light']) .dev-item:hover .dev-icon-box,
+	:global([data-theme='light']) .dev-item.is-active .dev-icon-box {
+		filter: drop-shadow(0 2px 6px rgba(146, 64, 14, 0.35));
+	}
+
+	:global([data-theme='light']) .dev-panel-container {
+		border-color: rgba(180, 83, 9, 0.3);
+		background: rgba(254, 243, 199, 0.45);
+	}
+
+	:global([data-theme='light']) .dev-item.is-active {
+		background: rgba(245, 158, 11, 0.15);
+		border-color: rgba(180, 83, 9, 0.4);
+	}
+
 	/* NEON CAPSULE TOOLTIP (MINIMALIST PILL MATCHING REFERENCE) */
 	.dev-capsule-tooltip {
 		position: absolute;
@@ -418,7 +444,7 @@
 		box-shadow:
 			0 0 14px rgba(255, 179, 39, 0.25),
 			0 8px 24px rgba(0, 0, 0, 0.55);
-		z-index: 60;
+		z-index: 100;
 		pointer-events: none;
 		white-space: nowrap;
 		display: flex;
@@ -428,9 +454,9 @@
 
 	:global([data-theme='light']) .dev-capsule-tooltip {
 		background: rgba(255, 255, 255, 0.96);
-		border: 1.5px solid var(--brand-gold, #ffb327);
+		border: 1.5px solid #d97706;
 		box-shadow:
-			0 0 14px rgba(255, 179, 39, 0.25),
+			0 0 14px rgba(217, 119, 6, 0.25),
 			0 8px 20px rgba(0, 0, 0, 0.12);
 	}
 
