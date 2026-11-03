@@ -8,22 +8,6 @@
 
 	let { isExpanded = false, isShiftedUp = false }: Props = $props();
 
-	let isInfoOpen = $state(false);
-
-	function openInfo() {
-		isInfoOpen = true;
-	}
-
-	function closeInfo() {
-		isInfoOpen = false;
-	}
-
-	function handleKeydown(e: KeyboardEvent) {
-		if (e.key === 'Escape' && isInfoOpen) {
-			closeInfo();
-		}
-	}
-
 	const channels = [
 		{
 			id: 'donate',
@@ -48,124 +32,42 @@
 			brandColor: '#e1306c',
 			brandGlow: 'rgba(225, 48, 108, 0.65)',
 			svg: `<rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>`
-		},
-		{
-			id: 'info',
-			name: 'Info',
-			isLink: false,
-			getUrl: () => '#',
-			getName: () => langStore.t('btn_info'),
-			getSublabel: () => langStore.t('btn_info_display'),
-			getTooltip: () => langStore.t('dev_warning'),
-			brandColor: '#38bdf8',
-			brandGlow: 'rgba(56, 189, 248, 0.65)',
-			svg: `<circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>`
 		}
 	];
 </script>
 
-<svelte:window onkeydown={handleKeydown} />
-
 <div class="contact-container" class:is-expanded={isExpanded} class:is-shifted-up={isShiftedUp}>
 	<nav class="contact-links" aria-label="Vet Crew Actions">
 		{#each channels as item (item.id)}
-			{#if item.isLink}
-				<a
-					href={item.getUrl()}
-					target="_blank"
-					rel="noopener noreferrer"
-					class="link-item channel-{item.id}"
-					style="--brand-color: {item.brandColor}; --brand-glow: {item.brandGlow};"
-					aria-label={item.getName()}
-				>
-					<div class="icon-wrap">
-						<svg
-							class="contact-icon"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="1.8"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							aria-hidden="true"
-						>
-							<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-							{@html item.svg}
-						</svg>
-					</div>
-					<span class="link-sublabel">{item.getSublabel()}</span>
-					<span class="tooltip">{item.getTooltip()}</span>
-				</a>
-			{:else}
-				<button
-					type="button"
-					class="link-item channel-{item.id} btn-action"
-					style="--brand-color: {item.brandColor}; --brand-glow: {item.brandGlow};"
-					onclick={openInfo}
-					aria-label={item.getName()}
-					aria-haspopup="dialog"
-				>
-					<div class="icon-wrap">
-						<svg
-							class="contact-icon"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="1.8"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							aria-hidden="true"
-						>
-							<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-							{@html item.svg}
-						</svg>
-					</div>
-					<span class="link-sublabel">{item.getSublabel()}</span>
-					<span class="tooltip tooltip-wide">{item.getTooltip()}</span>
-				</button>
-			{/if}
+			<a
+				href={item.getUrl()}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="link-item channel-{item.id}"
+				style="--brand-color: {item.brandColor}; --brand-glow: {item.brandGlow};"
+				aria-label={item.getName()}
+			>
+				<div class="icon-wrap">
+					<svg
+						class="contact-icon"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.8"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						aria-hidden="true"
+					>
+						<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+						{@html item.svg}
+					</svg>
+				</div>
+				<span class="link-sublabel">{item.getSublabel()}</span>
+				<span class="tooltip">{item.getTooltip()}</span>
+			</a>
 		{/each}
 	</nav>
 </div>
-
-<!-- Info Modal Popup Dialog -->
-{#if isInfoOpen}
-	<div class="modal-backdrop" role="presentation" onclick={closeInfo}>
-		<div
-			class="modal-card"
-			role="dialog"
-			tabindex="-1"
-			aria-modal="true"
-			aria-labelledby="modal-title"
-			onclick={(e) => e.stopPropagation()}
-			onkeydown={(e) => e.stopPropagation()}
-		>
-			<div class="modal-icon-wrap">
-				<svg
-					width="28"
-					height="28"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-				>
-					<circle cx="12" cy="12" r="10" />
-					<line x1="12" y1="16" x2="12" y2="12" />
-					<line x1="12" y1="8" x2="12.01" y2="8" />
-				</svg>
-			</div>
-
-			<h2 id="modal-title" class="modal-title">Vet Crew</h2>
-			<p class="modal-message">{langStore.t('dev_warning')}</p>
-
-			<button type="button" class="modal-close-btn" onclick={closeInfo}>
-				{langStore.t('dev_warning_close')}
-			</button>
-		</div>
-	</div>
-{/if}
 
 <style>
 	.contact-container {
@@ -331,107 +233,6 @@
 		opacity: 1;
 		transform: translateY(0) scale(1);
 		border-color: var(--brand-color);
-	}
-
-	/* MODAL STYLES */
-	.modal-backdrop {
-		position: fixed;
-		inset: 0;
-		background: rgba(0, 0, 0, 0.65);
-		backdrop-filter: blur(6px);
-		-webkit-backdrop-filter: blur(6px);
-		z-index: 1000;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding: 1.5rem;
-		animation: fadeIn 0.25s ease-out forwards;
-	}
-
-	.modal-card {
-		background: var(--bg-secondary, #131d14);
-		border: 1px solid var(--border, rgba(255, 255, 255, 0.12));
-		border-radius: 18px;
-		padding: 2rem 1.8rem;
-		max-width: 380px;
-		width: 100%;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		text-align: center;
-		box-shadow:
-			0 20px 50px rgba(0, 0, 0, 0.5),
-			0 0 30px rgba(56, 189, 248, 0.18);
-		animation: popIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-	}
-
-	.modal-icon-wrap {
-		width: 52px;
-		height: 52px;
-		border-radius: 50%;
-		background: rgba(56, 189, 248, 0.14);
-		color: #38bdf8;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		margin-bottom: 1.1rem;
-	}
-
-	.modal-title {
-		font-size: 1.35rem;
-		font-weight: 700;
-		color: var(--fg-primary);
-		margin: 0 0 0.6rem 0;
-		letter-spacing: -0.01em;
-	}
-
-	.modal-message {
-		font-size: 0.98rem;
-		line-height: 1.5;
-		color: var(--fg-secondary);
-		margin: 0 0 1.6rem 0;
-	}
-
-	.modal-close-btn {
-		width: 100%;
-		padding: 0.75rem 1.25rem;
-		border-radius: 10px;
-		background: var(--brand-accent, #598f3a);
-		color: #ffffff;
-		font-size: 0.95rem;
-		font-weight: 600;
-		border: none;
-		cursor: pointer;
-		transition: all 0.2s ease;
-	}
-
-	.modal-close-btn:hover {
-		filter: brightness(1.12);
-		transform: translateY(-1px);
-	}
-
-	.modal-close-btn:active {
-		transform: translateY(0);
-	}
-
-	@keyframes fadeIn {
-		from {
-			opacity: 0;
-		}
-		to {
-			opacity: 1;
-		}
-	}
-
-	@keyframes popIn {
-		from {
-			opacity: 0;
-			transform: scale(0.92) translateY(12px);
-		}
-		to {
-			opacity: 1;
-			transform: scale(1) translateY(0);
-		}
 	}
 
 	@media (max-width: 768px), (pointer: coarse) {

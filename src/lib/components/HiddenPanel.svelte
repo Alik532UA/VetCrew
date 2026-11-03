@@ -87,7 +87,7 @@
 	aria-hidden={!isVisible}
 >
 	<!-- 1. Окремий лівий контейнер: У РОЗРОБЦІ -->
-	<div class="dev-panel-container action-item-wrap">
+	<div class="dev-panel-container action-item-wrap" class:is-active={showTooltip}>
 		<button
 			type="button"
 			class="action-item dev-item"
@@ -300,6 +300,27 @@
 
 	.dev-panel-container {
 		padding: 0.65rem 0.85rem;
+		transition:
+			border-color 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+			box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+			transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.dev-panel-container:hover,
+	.dev-panel-container.is-active {
+		border-color: rgba(255, 179, 39, 0.5);
+		box-shadow:
+			0 0 16px rgba(255, 179, 39, 0.25),
+			var(--panel-shadow);
+		transform: translateY(-2px);
+	}
+
+	:global([data-theme='light']) .dev-panel-container:hover,
+	:global([data-theme='light']) .dev-panel-container.is-active {
+		border-color: rgba(180, 83, 9, 0.4);
+		box-shadow:
+			0 0 14px rgba(217, 119, 6, 0.2),
+			var(--panel-shadow);
 	}
 
 	.hidden-panel-content {
@@ -374,8 +395,13 @@
 	}
 
 	/* DEV BUTTON (AMBER / GOLD NEON HIGHLIGHT) */
-	.dev-item {
+	.dev-item,
+	.dev-item:hover,
+	.dev-item.is-active {
 		color: var(--brand-gold, #ffb327);
+		background: transparent !important;
+		border: 1px solid transparent !important;
+		transform: none !important;
 	}
 
 	.dev-icon-box {
@@ -395,12 +421,7 @@
 	.dev-title {
 		color: var(--brand-gold, #ffb327);
 		font-weight: 700;
-	}
-
-	.dev-item.is-active {
-		background: rgba(255, 179, 39, 0.1);
-		border-color: rgba(255, 179, 39, 0.35);
-		transform: translateY(-2px);
+		line-height: 1.25;
 	}
 
 	/* LIGHT THEME DEV BUTTON: Rich dark amber for high contrast & perfect readability */
@@ -417,16 +438,6 @@
 	:global([data-theme='light']) .dev-item:hover .dev-icon-box,
 	:global([data-theme='light']) .dev-item.is-active .dev-icon-box {
 		filter: drop-shadow(0 2px 6px rgba(146, 64, 14, 0.35));
-	}
-
-	:global([data-theme='light']) .dev-panel-container {
-		border-color: rgba(180, 83, 9, 0.3);
-		background: rgba(254, 243, 199, 0.45);
-	}
-
-	:global([data-theme='light']) .dev-item.is-active {
-		background: rgba(245, 158, 11, 0.15);
-		border-color: rgba(180, 83, 9, 0.4);
 	}
 
 	/* NEON CAPSULE TOOLTIP (MINIMALIST PILL MATCHING REFERENCE) */
