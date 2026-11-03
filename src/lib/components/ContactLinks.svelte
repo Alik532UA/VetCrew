@@ -461,8 +461,9 @@
 		}
 
 		.link-item {
-			padding: 4px 6px;
+			padding: 4px 2px;
 			flex-shrink: 0;
+			container-type: inline-size;
 		}
 
 		.icon-wrap {
@@ -480,24 +481,28 @@
 		}
 
 		.link-sublabel {
-			font-size: 0.74rem;
+			font-size: clamp(0.5rem, 2.5vw, 0.74rem);
+			font-size: clamp(0.5rem, 9.4cqw, 0.74rem);
+			letter-spacing: -0.015em;
 			margin-top: 6px;
 			width: 100%;
 			text-align: center;
 			white-space: nowrap;
 			overflow: hidden;
-			text-overflow: ellipsis;
+			text-overflow: clip;
 		}
 
 		.is-expanded .link-sublabel {
-			font-size: 0.74rem;
+			font-size: clamp(0.5rem, 2.5vw, 0.74rem);
+			font-size: clamp(0.5rem, 9.4cqw, 0.74rem);
+			letter-spacing: -0.015em;
 			margin-top: 6px;
 			max-height: 24px;
 			width: 100%;
 			text-align: center;
 			white-space: nowrap;
 			overflow: hidden;
-			text-overflow: ellipsis;
+			text-overflow: clip;
 		}
 
 		.tooltip {
