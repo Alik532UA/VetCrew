@@ -34,4 +34,3 @@ describe('Vet Crew NGO Initiatives Registry (Scalability & Data Invariants)', ()
 		}
 	});
 });
-

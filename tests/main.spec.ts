@@ -31,4 +31,3 @@ test.describe('Vet Crew Main Portal E2E', () => {
 		expect(accessibilityScanResults.violations).toEqual([]);
 	});
 });
-
