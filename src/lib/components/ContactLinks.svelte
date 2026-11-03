@@ -73,13 +73,12 @@
 	.contact-container {
 		position: fixed;
 		bottom: 2.25rem;
-		left: 50%;
-		transform: translateX(-50%);
-		z-index: 50;
+		left: 0;
+		right: 0;
 		display: flex;
-		flex-direction: column;
-		align-items: center;
 		justify-content: center;
+		align-items: center;
+		z-index: 50;
 		pointer-events: none;
 		transition:
 			transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
@@ -92,12 +91,12 @@
 	}
 
 	.contact-container.is-shifted-up {
-		transform: translateX(-50%) translateY(-105px);
+		transform: translateY(-105px);
 	}
 
 	.contact-links {
 		display: grid;
-		grid-template-columns: repeat(3, 100px);
+		grid-template-columns: repeat(2, 110px);
 		justify-items: center;
 		align-items: center;
 		padding: 0.25rem 1rem;
@@ -106,7 +105,7 @@
 	}
 
 	.is-expanded .contact-links {
-		grid-template-columns: repeat(3, 160px);
+		grid-template-columns: repeat(2, 160px);
 	}
 
 	.link-item {
@@ -238,8 +237,9 @@
 	@media (max-width: 768px), (pointer: coarse) {
 		.contact-container {
 			bottom: 1.45rem;
-			max-width: calc(100vw - 1rem);
-			box-sizing: border-box;
+			left: 0;
+			right: 0;
+			max-width: 100vw;
 		}
 
 		.contact-container.is-expanded {
@@ -247,17 +247,17 @@
 		}
 
 		.contact-container.is-shifted-up {
-			transform: translateX(-50%) translateY(-115px);
+			transform: translateY(-115px);
 		}
 
 		.contact-links {
-			grid-template-columns: repeat(3, minmax(70px, 1fr));
+			grid-template-columns: repeat(2, 88px);
 			gap: 0;
 			padding: 0.2rem 0.5rem;
 		}
 
 		.is-expanded .contact-links {
-			grid-template-columns: repeat(3, minmax(88px, 1fr));
+			grid-template-columns: repeat(2, 120px);
 			gap: 0;
 		}
 
