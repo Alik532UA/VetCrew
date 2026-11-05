@@ -85,6 +85,7 @@
 	class:is-visible={isVisible}
 	aria-label="Додаткові налаштування"
 	aria-hidden={!isVisible}
+	inert={!isVisible}
 >
 	<!-- 1. Окремий лівий контейнер: У РОЗРОБЦІ -->
 	<div class="dev-panel-container action-item-wrap" class:is-active={showTooltip}>
