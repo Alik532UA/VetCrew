@@ -39,4 +39,3 @@ describe('Security & Storage Isolation (SECURITY-v10 & STORAGE-NAMESPACE-v10)', 
 		}
 	});
 });
-

@@ -144,19 +144,19 @@
 
 ## 15. Опціональні критерії інженерного та продуктового пакетів
 
-| Критерій | Застосовано | Причина / Локація |
-| :--- | :---: | :--- |
-| **I18N** | Так | Двомовність UA/EN, `src/lib/controllers/lang.svelte.ts` |
-| **DEPENDENCIES** | Так | Регулярний аудит, Dependabot, `scripts/check-audit.js` |
-| **VERSIONING** | Так | `__APP_VERSION__`, `scripts/bump-version.mjs` |
-| **ACCESSIBILITY** | Так | WCAG 2.2 AA, `:focus-visible`, `prefers-reduced-motion` |
-| **STORAGE-NAMESPACE** | Так | Префікс `vetcrew_`, `src/lib/services/storage.ts` |
-| **ERROR-HANDLING** | Так | `<svelte:boundary>`, stale-build захист у `hooks.client.ts` |
-| **SECURITY-SCAN** | Так | `src/security.test.ts`, `src/csp-hash.test.ts` |
+| Критерій              | Застосовано | Причина / Локація                                           |
+| :-------------------- | :---------: | :---------------------------------------------------------- |
+| **I18N**              |     Так     | Двомовність UA/EN, `src/lib/controllers/lang.svelte.ts`     |
+| **DEPENDENCIES**      |     Так     | Регулярний аудит, Dependabot, `scripts/check-audit.js`      |
+| **VERSIONING**        |     Так     | `__APP_VERSION__`, `scripts/bump-version.mjs`               |
+| **ACCESSIBILITY**     |     Так     | WCAG 2.2 AA, `:focus-visible`, `prefers-reduced-motion`     |
+| **STORAGE-NAMESPACE** |     Так     | Префікс `vetcrew_`, `src/lib/services/storage.ts`           |
+| **ERROR-HANDLING**    |     Так     | `<svelte:boundary>`, stale-build захист у `hooks.client.ts` |
+| **SECURITY-SCAN**     |     Так     | `src/security.test.ts`, `src/csp-hash.test.ts`              |
 
 ## 16. Свідомі відхилення від канону
 
 1. **Гібридне векторне 3D-лого замість важких WebGL-текстур**:
-   - *Причина*: Використання векторних SVG-пафів із псевдо-3D перспективною матрицею дає швидкість завантаження < 50мс та 0 МБ сторонніх 3D-моделей (GLTF).
+   - _Причина_: Використання векторних SVG-пафів із псевдо-3D перспективною матрицею дає швидкість завантаження < 50мс та 0 МБ сторонніх 3D-моделей (GLTF).
 2. **Зовнішні платіжні шлюзи замість локальних форм карткових оплат**:
-   - *Причина*: Усуває ризики компрометації платіжних даних (PCI DSS) та спрямовує донати безпосередньо у перевірений фонд.
+   - _Причина_: Усуває ризики компрометації платіжних даних (PCI DSS) та спрямовує донати безпосередньо у перевірений фонд.
