@@ -1,3 +1,9 @@
+---
+Назва: Контекст проєкту VetCrewMain
+Канон: selection_criteria/v10 та product_criteria/v10
+Дата оновлення: 2026-11-11
+---
+
 # Vet Crew — Project Context
 
 ## 1. Загальні відомості
@@ -56,7 +62,7 @@
   - Вставка здійснюється через компонент `src/lib/components/JsonLd.svelte` та функцію `jsonLdScript()` (`src/lib/security/jsonLd.ts`), що екранує небезпечні символи (`<`, `>`, `&`, Unicode-розділювачі) для запобігання XSS.
 - **Content-Security-Policy (CSP) sha256-хешування (SECURITY-v10 § 6.3.1)**:
   - `svelte.config.js` автоматично обчислює SHA-256 хеші для всіх інлайн-скриптів у `src/app.html` із нормалізацією CRLF -> LF для сумісності з розбором HTML у браузері.
-  - Інваріант перевіряється юніт-тестом `src/csp-hash.test.ts`.
+  - Інваріант перевіряється юніт-тестами `src/csp-hash.test.ts` та `src/security.test.ts`.
 
 ## 7. Стандарти якості коду та CI/CD (CODE-QUALITY-v10 & CI-CD-AND-TOOLS-v10)
 
@@ -76,7 +82,7 @@
   - Обов'язкові кроки перевірки: `npm run audit:ci`, `npm run check`, `npm run lint`, `npm run test:unit`, `npm run build`.
   - Автоматичне оновлення залежностей через Dependabot (`.github/dependabot.yml`).
 - **Тестування та надійність**:
-  - Юніт-тести Vitest (`npm run test:unit`): 12 файлів, 64 тести (перевірка CSP, сховища, hotkeys, logService, версіонування).
+  - Юніт-тести Vitest (`npm run test:unit`): 13 файлів (перевірка CSP, security, сховища, hotkeys, logService, версіонування).
   - End-to-end та доступність: Playwright (`playwright.config.ts`, `tests/main.spec.ts`) з інтеграцією `@axe-core/playwright` для верифікації WCAG 2.2 AA.
 
 ## 8. Обробка помилок та Error Boundaries (ERROR-HANDLING-v10 § 2.2)
@@ -135,3 +141,22 @@
   - `src/lib/services/`: нереактивні сервіси та адаптери (`storage.ts`, `fullscreen.ts`, `logService.svelte.ts`).
   - `src/lib/utils/`: чисті допоміжні функції (`staleBuild.ts`).
   - `src/lib/siblings.ts`: навігація між сайтами екосистеми.
+
+## 15. Опціональні критерії інженерного та продуктового пакетів
+
+| Критерій | Застосовано | Причина / Локація |
+| :--- | :---: | :--- |
+| **I18N** | Так | Двомовність UA/EN, `src/lib/controllers/lang.svelte.ts` |
+| **DEPENDENCIES** | Так | Регулярний аудит, Dependabot, `scripts/check-audit.js` |
+| **VERSIONING** | Так | `__APP_VERSION__`, `scripts/bump-version.mjs` |
+| **ACCESSIBILITY** | Так | WCAG 2.2 AA, `:focus-visible`, `prefers-reduced-motion` |
+| **STORAGE-NAMESPACE** | Так | Префікс `vetcrew_`, `src/lib/services/storage.ts` |
+| **ERROR-HANDLING** | Так | `<svelte:boundary>`, stale-build захист у `hooks.client.ts` |
+| **SECURITY-SCAN** | Так | `src/security.test.ts`, `src/csp-hash.test.ts` |
+
+## 16. Свідомі відхилення від канону
+
+1. **Гібридне векторне 3D-лого замість важких WebGL-текстур**:
+   - *Причина*: Використання векторних SVG-пафів із псевдо-3D перспективною матрицею дає швидкість завантаження < 50мс та 0 МБ сторонніх 3D-моделей (GLTF).
+2. **Зовнішні платіжні шлюзи замість локальних форм карткових оплат**:
+   - *Причина*: Усуває ризики компрометації платіжних даних (PCI DSS) та спрямовує донати безпосередньо у перевірений фонд.

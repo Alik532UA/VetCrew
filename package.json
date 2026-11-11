@@ -1,7 +1,7 @@
 {
 	"name": "vetcrew",
 	"private": true,
-	"version": "0.1.26",
+	"version": "0.1.27",
 	"type": "module",
 	"engines": {
 		"node": ">=22"
@@ -21,7 +21,8 @@
 		"version:minor": "npm version minor --no-git-tag-version",
 		"audit:ci": "node scripts/check-audit.js",
 		"test:unit": "vitest run",
-		"test:e2e": "playwright test"
+		"test:e2e": "playwright test",
+		"test": "vitest run"
 	},
 	"devDependencies": {
 		"@axe-core/playwright": "^4.14.0",
