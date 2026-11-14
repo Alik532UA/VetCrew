@@ -8,6 +8,7 @@
 	import { langStore } from '../lib/lang.svelte';
 	import JsonLd from '../lib/components/JsonLd.svelte';
 	import { HotkeyService, shortcutLetter } from '$lib/hotkeys/hotkeys';
+	import { siteUrl } from '$lib/config/site';
 
 	const hotkeys = getContext<HotkeyService | undefined>('hotkeys');
 
@@ -137,9 +138,9 @@
 		'@type': 'NGO',
 		name: 'Vet Crew',
 		alternateName: 'VetCrew',
-		url: 'https://alik532ua.github.io/VetCrew/',
-		logo: 'https://alik532ua.github.io/VetCrew/logo.svg',
-		image: 'https://alik532ua.github.io/VetCrew/logo.svg',
+		url: siteUrl('/'),
+		logo: siteUrl('/logo.svg'),
+		image: siteUrl('/logo.svg'),
 		sameAs: [
 			'https://vet-crew-donation.org',
 			'https://www.instagram.com/vet.crew/',
@@ -165,8 +166,8 @@
 			? 'Vet Crew — порятунок, лікування та реабілітація диких і екзотичних тварин. Підтримайте нашу місію.'
 			: 'Vet Crew — rescue, care, and rehabilitation of wild and exotic animals. Support our mission.'}
 	/>
-	<link rel="canonical" href="https://alik532ua.github.io/VetCrew/" />
-	<meta property="og:url" content="https://alik532ua.github.io/VetCrew/" />
+	<link rel="canonical" href={siteUrl('/')} />
+	<meta property="og:url" content={siteUrl('/')} />
 	<meta
 		property="og:title"
 		content={langStore.current === 'uk'

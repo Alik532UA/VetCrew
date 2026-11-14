@@ -7,6 +7,7 @@ export type SiblingId =
 	| 'VetCrewEmergency'
 	| 'vetcrewgames'
 	| 'vetcrew'
+	| 'vetcrewhospital'
 	| 'digitalworkshop'
 	| 'cv'
 	| 'mindstep'
@@ -52,8 +53,16 @@ export const SIBLINGS = {
 		trailingSlash: true
 	},
 	vetcrew: {
-		origin: 'https://alik532ua.github.io',
-		base: '/VetCrew',
+		origin: 'https://vet-crew.org',
+		base: '',
+		locales: ['uk', 'en'],
+		defaultLocale: 'uk',
+		transport: 'query',
+		trailingSlash: false
+	},
+	vetcrewhospital: {
+		origin: 'https://vet-crew-hospital.org',
+		base: '',
 		locales: ['uk', 'en'],
 		defaultLocale: 'uk',
 		transport: 'query',

@@ -60,6 +60,7 @@ const config = {
 			}
 		},
 		prerender: {
+			origin: process.env.SITE_ORIGIN ?? 'https://vet-crew.org',
 			entries: ['*'],
 			handleUnseenRoutes: 'warn'
 		},

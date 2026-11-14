@@ -73,14 +73,20 @@ jobs:
         id: site
         if: ${{ !cancelled() }}
         run: |
-          owner=$(printf '%s' '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')
-          repo='${{ github.event.repository.name }}'
-          if [ "$(printf '%s' "$repo" | tr '[:upper:]' '[:lower:]')" = "$owner.github.io" ]; then
+          if [ -f static/CNAME ]; then
+            cname=$(head -n 1 static/CNAME | tr -d '\r\n')
             echo "base=" >> "$GITHUB_OUTPUT"
+            echo "origin=https://$cname" >> "$GITHUB_OUTPUT"
           else
-            echo "base=/$repo" >> "$GITHUB_OUTPUT"
+            owner=$(printf '%s' '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')
+            repo='${{ github.event.repository.name }}'
+            if [ "$(printf '%s' "$repo" | tr '[:upper:]' '[:lower:]')" = "$owner.github.io" ]; then
+              echo "base=" >> "$GITHUB_OUTPUT"
+            else
+              echo "base=/$repo" >> "$GITHUB_OUTPUT"
+            fi
+            echo "origin=https://$owner.github.io" >> "$GITHUB_OUTPUT"
           fi
-          echo "origin=https://$owner.github.io" >> "$GITHUB_OUTPUT"
 
       - name: Build site
         id: build

@@ -6,7 +6,7 @@ import { readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const BUILD_DIR = 'build';
-const DEFAULT_ORIGIN = 'https://alik532ua.github.io/VetCrew';
+const DEFAULT_ORIGIN = process.env.SITE_ORIGIN ?? 'https://vet-crew.org';
 
 function findHtmlFiles(dir, out = []) {
 	for (const entry of readdirSync(dir)) {

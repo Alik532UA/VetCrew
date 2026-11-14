@@ -4,8 +4,8 @@ import { SIBLINGS, resolveSiblingLocale, siblingUrl } from './siblings';
 describe('siblings.ts — міжпроєктна екосистема', () => {
 	it('запис власного проєкту відповідає конфігурації VetCrew', () => {
 		const self = SIBLINGS.vetcrew;
-		expect(self.origin).toBe('https://alik532ua.github.io');
-		expect(self.base).toBe('/VetCrew');
+		expect(self.origin).toBe('https://vet-crew.org');
+		expect(self.base).toBe('');
 		expect(self.locales).toEqual(['uk', 'en']);
 		expect(self.defaultLocale).toBe('uk');
 		expect(self.transport).toBe('query');
@@ -22,10 +22,10 @@ describe('siblings.ts — міжпроєктна екосистема', () => {
 
 	it('siblingUrl коректно будує посилання з query-параметром для власного проєкту', () => {
 		const urlEn = siblingUrl('vetcrew', 'en');
-		expect(urlEn).toBe('https://alik532ua.github.io/VetCrew/?lang=en');
+		expect(urlEn).toBe('https://vet-crew.org/?lang=en');
 
 		const urlUk = siblingUrl('vetcrew', 'uk');
-		expect(urlUk).toBe('https://alik532ua.github.io/VetCrew/?lang=uk');
+		expect(urlUk).toBe('https://vet-crew.org/?lang=uk');
 	});
 
 	it('siblingUrl коректно будує шлях для проєктів із transport: path (VetCrewEmergency)', () => {
