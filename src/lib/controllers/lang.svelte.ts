@@ -28,7 +28,23 @@ const TRANSLATIONS = {
 		fullscreen_exit: 'Згорнути',
 		scroll_hero: 'Головна',
 		scroll_contacts: 'Контакти',
-		skip_to_content: 'До основного вмісту'
+		skip_to_content: 'До основного вмісту',
+		bg_settings_title: 'Налаштування фону',
+		bg_mode_photo: 'Фото',
+		bg_mode_solid: 'Суцільний фон',
+		bg_blur_label: 'Розмиття:',
+		bg_overlay_label: 'Пелена:',
+		bg_overlay_theme_light: 'світла',
+		bg_overlay_theme_dark: 'темна',
+		bg_solid_color_label: 'Колір фону:',
+		bg_overlay_color_label: 'Колір пелени:',
+		bg_custom_color: 'Власний колір',
+		bg_menu_capsule_label: 'Фон головного меню:',
+		bg_menu_capsule_on: 'Увімкнено',
+		bg_menu_capsule_off: 'Вимкнено',
+		bg_reset_all: 'Скинути налаштування',
+		bg_reset_btn: 'Скинути',
+		bg_close_btn: 'Закрити'
 	},
 	en: {
 		brand_name: 'Vet Crew',
@@ -54,7 +70,23 @@ const TRANSLATIONS = {
 		fullscreen_exit: 'Exit',
 		scroll_hero: 'Hero',
 		scroll_contacts: 'Contacts',
-		skip_to_content: 'Skip to content'
+		skip_to_content: 'Skip to content',
+		bg_settings_title: 'Background Settings',
+		bg_mode_photo: 'Photo',
+		bg_mode_solid: 'Solid Color',
+		bg_blur_label: 'Blur:',
+		bg_overlay_label: 'Overlay:',
+		bg_overlay_theme_light: 'light',
+		bg_overlay_theme_dark: 'dark',
+		bg_solid_color_label: 'Background color:',
+		bg_overlay_color_label: 'Overlay color:',
+		bg_custom_color: 'Custom color',
+		bg_menu_capsule_label: 'Main menu background:',
+		bg_menu_capsule_on: 'Enabled',
+		bg_menu_capsule_off: 'Disabled',
+		bg_reset_all: 'Reset to defaults',
+		bg_reset_btn: 'Reset',
+		bg_close_btn: 'Close'
 	}
 } as const;
 

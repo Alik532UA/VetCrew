@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { langStore } from '../lang.svelte';
+	import { bgStore } from '../controllers/background.svelte';
 
 	interface Props {
 		isExpanded?: boolean;
@@ -43,7 +44,7 @@
 			getTooltip: () => 'facebook.com/vet.crew',
 			brandColor: '#1877f2',
 			brandGlow: 'rgba(24, 119, 242, 0.65)',
-			svg: `<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>`
+			svg: `<rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M15 22V13.9999H17.0762C17.5066 13.9999 17.8887 13.7245 18.0249 13.3161L18.4679 11.9871C18.6298 11.5014 18.2683 10.9999 17.7564 10.9999H15V8.99992C15 8.49992 15.5 7.99992 16 7.99992H18C18.5523 7.99992 19 7.5522 19 6.99992V6.31393C19 5.99091 18.7937 5.7013 18.4813 5.61887C17.1705 5.27295 16 5.27295 16 5.27295C13.5 5.27295 12 6.99992 12 8.49992V10.9999H10C9.44772 10.9999 9 11.4476 9 11.9999V12.9999C9 13.5522 9.44771 13.9999 10 13.9999H12V22H15Z" fill="currentColor" stroke="none"/>`
 		},
 		{
 			id: 'tiktok',
@@ -55,13 +56,17 @@
 			getTooltip: () => 'tiktok.com/@vet.crew',
 			brandColor: '#00f2fe',
 			brandGlow: 'rgba(0, 242, 254, 0.65)',
-			svg: `<circle cx="9" cy="15" r="4"/><path d="M13 15V3c1.5 2 3.5 3 6 3"/>`
+			svg: `<rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M10 12C8.34315 12 7 13.3431 7 15C7 16.6569 8.34315 18 10 18C11.6569 18 13 16.6569 13 15V6C13.3333 7 14.6 9 17 9"/>`
 		}
 	];
 </script>
 
 <div class="contact-container" class:is-expanded={isExpanded} class:is-shifted-up={isShiftedUp}>
-	<nav class="contact-links" aria-label="Vet Crew Actions">
+	<nav
+		class="contact-links"
+		class:has-capsule={bgStore.showMenuCapsule}
+		aria-label="Vet Crew Actions"
+	>
 		{#each channels as item (item.id)}
 			<a
 				href={item.getUrl()}
@@ -125,11 +130,31 @@
 		align-items: center;
 		padding: 0.25rem 1rem;
 		pointer-events: auto;
-		transition: grid-template-columns 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+		border: 1px solid transparent;
+		border-radius: 9999px;
+		transition:
+			grid-template-columns 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+			padding 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+			background-color 0.3s ease,
+			border-color 0.3s ease,
+			box-shadow 0.3s ease;
+	}
+
+	.contact-links.has-capsule {
+		background: var(--panel-bg);
+		backdrop-filter: blur(20px) saturate(180%);
+		-webkit-backdrop-filter: blur(20px) saturate(180%);
+		border-color: var(--panel-border);
+		box-shadow: var(--panel-shadow);
+		padding: 0.55rem 1rem;
 	}
 
 	.is-expanded .contact-links {
 		grid-template-columns: repeat(4, 136px);
+	}
+
+	.is-expanded .contact-links.has-capsule {
+		padding: 0.75rem 1.25rem 0.85rem;
 	}
 
 	.link-item {
@@ -275,24 +300,29 @@
 		}
 
 		.contact-links {
-			grid-template-columns: repeat(4, minmax(64px, 80px));
+			grid-template-columns: repeat(4, minmax(62px, 78px));
 			gap: 0;
 			padding: 0.2rem 0.25rem;
 		}
 
+		.contact-links.has-capsule {
+			padding: 0.35rem 0.5rem;
+		}
+
 		.is-expanded .contact-links {
-			grid-template-columns: repeat(4, minmax(68px, 86px));
+			grid-template-columns: repeat(4, minmax(66px, 82px));
 			gap: 0;
+			padding: 0.25rem 0.25rem;
+		}
+
+		.is-expanded .contact-links.has-capsule {
+			padding: 0.45rem 0.65rem 0.55rem;
 		}
 
 		.link-item {
 			padding: 4px 2px;
 			flex-shrink: 0;
 			container-type: inline-size;
-		}
-
-		.icon-wrap {
-			color: var(--fg-primary);
 		}
 
 		.contact-icon {
