@@ -140,7 +140,12 @@
 		url: 'https://alik532ua.github.io/VetCrew/',
 		logo: 'https://alik532ua.github.io/VetCrew/logo.svg',
 		image: 'https://alik532ua.github.io/VetCrew/logo.svg',
-		sameAs: ['https://www.instagram.com/vet.crew/', 'https://vet-crew-donation.org'],
+		sameAs: [
+			'https://vet-crew-donation.org',
+			'https://www.instagram.com/vet.crew/',
+			'https://www.facebook.com/vet.crew/',
+			'https://www.tiktok.com/@vet.crew'
+		],
 		description:
 			langStore.current === 'uk'
 				? 'Vet Crew — міжнародна організація з порятунку, лікування та реабілітації диких і екзотичних тварин.'

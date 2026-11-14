@@ -15,10 +15,14 @@ describe('langStore controller', () => {
 		langStore.set('uk');
 		expect(langStore.current).toBe('uk');
 		expect(langStore.t('btn_donate')).toBe('Donation');
+		expect(langStore.t('btn_facebook')).toBe('Facebook');
+		expect(langStore.t('btn_tiktok')).toBe('TikTok');
 
 		langStore.toggle();
 		expect(langStore.current).toBe('en');
 		expect(langStore.t('btn_donate')).toBe('Donation');
+		expect(langStore.t('btn_facebook')).toBe('Facebook');
+		expect(langStore.t('btn_tiktok')).toBe('TikTok');
 
 		langStore.set('uk');
 		expect(langStore.current).toBe('uk');

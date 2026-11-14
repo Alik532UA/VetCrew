@@ -28,10 +28,34 @@
 			getUrl: () => 'https://www.instagram.com/vet.crew/',
 			getName: () => langStore.t('btn_instagram'),
 			getSublabel: () => langStore.t('btn_instagram_display'),
-			getTooltip: () => langStore.t('btn_instagram_display'),
+			getTooltip: () => 'instagram.com/vet.crew',
 			brandColor: '#e1306c',
 			brandGlow: 'rgba(225, 48, 108, 0.65)',
 			svg: `<rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>`
+		},
+		{
+			id: 'facebook',
+			name: 'Facebook',
+			isLink: true,
+			getUrl: () => 'https://www.facebook.com/vet.crew/',
+			getName: () => langStore.t('btn_facebook'),
+			getSublabel: () => langStore.t('btn_facebook_display'),
+			getTooltip: () => 'facebook.com/vet.crew',
+			brandColor: '#1877f2',
+			brandGlow: 'rgba(24, 119, 242, 0.65)',
+			svg: `<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>`
+		},
+		{
+			id: 'tiktok',
+			name: 'TikTok',
+			isLink: true,
+			getUrl: () => 'https://www.tiktok.com/@vet.crew',
+			getName: () => langStore.t('btn_tiktok'),
+			getSublabel: () => langStore.t('btn_tiktok_display'),
+			getTooltip: () => 'tiktok.com/@vet.crew',
+			brandColor: '#00f2fe',
+			brandGlow: 'rgba(0, 242, 254, 0.65)',
+			svg: `<circle cx="9" cy="15" r="4"/><path d="M13 15V3c1.5 2 3.5 3 6 3"/>`
 		}
 	];
 </script>
@@ -96,7 +120,7 @@
 
 	.contact-links {
 		display: grid;
-		grid-template-columns: repeat(2, 110px);
+		grid-template-columns: repeat(4, 96px);
 		justify-items: center;
 		align-items: center;
 		padding: 0.25rem 1rem;
@@ -105,7 +129,7 @@
 	}
 
 	.is-expanded .contact-links {
-		grid-template-columns: repeat(2, 160px);
+		grid-template-columns: repeat(4, 136px);
 	}
 
 	.link-item {
@@ -251,13 +275,13 @@
 		}
 
 		.contact-links {
-			grid-template-columns: repeat(2, 88px);
+			grid-template-columns: repeat(4, minmax(64px, 80px));
 			gap: 0;
-			padding: 0.2rem 0.5rem;
+			padding: 0.2rem 0.25rem;
 		}
 
 		.is-expanded .contact-links {
-			grid-template-columns: repeat(2, 120px);
+			grid-template-columns: repeat(4, minmax(68px, 86px));
 			gap: 0;
 		}
 

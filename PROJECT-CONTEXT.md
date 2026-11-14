@@ -39,9 +39,10 @@
 
 ## 4. Канали взаємодії
 
-1. **Instagram**: `https://www.instagram.com/vet.crew/`
-2. **Donate**: `https://vet-crew-donation.org`
-3. **Info**: Модальне діалогове вікно та тултіп з повідомленням про стадію розробки
+1. **Donation**: `https://vet-crew-donation.org`
+2. **Instagram**: `https://www.instagram.com/vet.crew/`
+3. **Facebook**: `https://www.facebook.com/vet.crew/`
+4. **TikTok**: `https://www.tiktok.com/@vet.crew`
 
 ## 5. Інтерфейс та Модульне розширення
 
