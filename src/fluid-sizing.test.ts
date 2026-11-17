@@ -5,14 +5,25 @@ import { join } from 'node:path';
 import { parse } from 'svelte/compiler';
 import { describe, expect, it } from 'vitest';
 
-type AstNode = { type?: string; name?: string; data?: string; start?: number; value?: unknown; [key: string]: unknown };
+type AstNode = {
+	type?: string;
+	name?: string;
+	data?: string;
+	start?: number;
+	value?: unknown;
+	[key: string]: unknown;
+};
 /** Шматок CSS: текст без коментарів і його зсув у файлі — для номера рядка. */
 type Block = { file: string; source: string; text: string; offset: number };
 
 const styleFiles = (dir: string): string[] =>
 	readdirSync(dir).flatMap((entry) => {
 		const full = join(dir, entry);
-		return statSync(full).isDirectory() ? styleFiles(full) : /\.(css|svelte)$/.test(entry) ? [full] : [];
+		return statSync(full).isDirectory()
+			? styleFiles(full)
+			: /\.(css|svelte)$/.test(entry)
+				? [full]
+				: [];
 	});
 
 function walk(node: unknown, visit: (n: AstNode) => void): void {
@@ -20,7 +31,8 @@ function walk(node: unknown, visit: (n: AstNode) => void): void {
 	if (!node || typeof node !== 'object') return;
 	const n = node as AstNode;
 	if (typeof n.type === 'string') visit(n);
-	for (const [key, value] of Object.entries(n)) if (key !== 'metadata' && key !== 'parent') walk(value, visit);
+	for (const [key, value] of Object.entries(n))
+		if (key !== 'metadata' && key !== 'parent') walk(value, visit);
 }
 
 /** Коментарі → пробіли тієї ж довжини: цитата в коментарі не червонить, рядки не зсуваються; `/*` у рядку — не коментар. */
@@ -54,14 +66,22 @@ function cssBlocks(file: string): Block[] {
 		const ast = parse(source, { modern: true });
 		const blocks: Block[] = [];
 		const style = ast.css?.content;
-		if (style) blocks.push({ file, source, text: withoutComments(style.styles), offset: style.start });
+		if (style)
+			blocks.push({ file, source, text: withoutComments(style.styles), offset: style.start });
 		walk(ast.fragment, (n) => {
 			const parts = Array.isArray(n.value) ? (n.value as AstNode[]) : [];
 			if (n.type === 'Attribute' && n.name === 'style') {
-				for (const p of parts) if (p.type === 'Text') blocks.push({ file, source, text: p.data ?? '', offset: p.start ?? 0 });
+				for (const p of parts)
+					if (p.type === 'Text')
+						blocks.push({ file, source, text: p.data ?? '', offset: p.start ?? 0 });
 			}
 			if (n.type === 'StyleDirective' && parts.every((p) => p.type === 'Text')) {
-				blocks.push({ file, source, text: `${n.name}: ${parts.map((p) => p.data).join('')}`, offset: n.start ?? 0 });
+				blocks.push({
+					file,
+					source,
+					text: `${n.name}: ${parts.map((p) => p.data).join('')}`,
+					offset: n.start ?? 0
+				});
 			}
 		});
 		return blocks;
@@ -102,7 +122,9 @@ function expand(value: string, tokens: Map<string, string[]>, depth = 0): string
 	const [name = '', fallback] = args(call);
 	const options = tokens.get(name) ?? (fallback ? [fallback] : []);
 	if (options.length === 0) return [];
-	return options.flatMap((o) => expand(value.slice(0, at) + o + value.slice(at + 4 + call.length + 1), tokens, depth + 1));
+	return options.flatMap((o) =>
+		expand(value.slice(0, at) + o + value.slice(at + 4 + call.length + 1), tokens, depth + 1)
+	);
 }
 
 /** Одиниці в'юпорта й контейнера. */
@@ -154,14 +176,22 @@ export function fluidFindings(blocks: Block[], tokens: Map<string, string[]>): s
 		const line = (index: number) => source.slice(0, offset + index).split('\n').length;
 		for (const m of text.matchAll(/repeat\(/g)) {
 			const [count = '', track = ''] = args(inside(text, m.index + 'repeat'.length));
-			if (/^auto-(fit|fill)$/.test(count) && !/^minmax\(/.test(track) && expand(track, tokens).some(rigidFloor)) {
-				out.push(`${file}:${line(m.index)}: repeat(${count}, ${track}) — підлога, що не поступається контейнеру (§ 1.1)`);
+			if (
+				/^auto-(fit|fill)$/.test(count) &&
+				!/^minmax\(/.test(track) &&
+				expand(track, tokens).some(rigidFloor)
+			) {
+				out.push(
+					`${file}:${line(m.index)}: repeat(${count}, ${track}) — підлога, що не поступається контейнеру (§ 1.1)`
+				);
 			}
 		}
 		for (const m of text.matchAll(/minmax\(/g)) {
 			const first = args(inside(text, m.index + 'minmax'.length))[0] ?? '';
 			if (expand(first, tokens).some(rigidFloor)) {
-				out.push(`${file}:${line(m.index)}: minmax(${first}, …) — підлога, що не поступається контейнеру (§ 1.1)`);
+				out.push(
+					`${file}:${line(m.index)}: minmax(${first}, …) — підлога, що не поступається контейнеру (§ 1.1)`
+				);
 			}
 		}
 		for (const m of text.matchAll(/(?<![\w-])(font-size|font)\s*:\s*([^;}]+)/g)) {
@@ -169,12 +199,18 @@ export function fluidFindings(blocks: Block[], tokens: Map<string, string[]>): s
 			const size = fontSize(property, raw.trim());
 			for (const value of size ? expand(size, tokens) : []) {
 				if (viewportWithoutRem(value)) {
-					out.push(`${file}:${line(m.index)}: ${property}: ${value} — одиниця в'юпорта без rem (§ 2.1)`);
+					out.push(
+						`${file}:${line(m.index)}: ${property}: ${value} — одиниця в'юпорта без rem (§ 2.1)`
+					);
 				}
 				const clamp = /^clamp\(/.test(value) ? args(inside(value, 'clamp'.length)) : null;
-				const [min, max] = clamp ? [toPx(clamp[0] ?? ''), toPx(clamp[2] ?? '')] : [undefined, undefined];
+				const [min, max] = clamp
+					? [toPx(clamp[0] ?? ''), toPx(clamp[2] ?? '')]
+					: [undefined, undefined];
 				if (min && max && max / min > 2.5) {
-					out.push(`${file}:${line(m.index)}: ${property}: ${value} — верхня межа > 2,5× нижньої (§ 2.1)`);
+					out.push(
+						`${file}:${line(m.index)}: ${property}: ${value} — верхня межа > 2,5× нижньої (§ 2.1)`
+					);
 				}
 			}
 		}
@@ -213,7 +249,10 @@ describe('масштабування (FLUID-SIZING-v10)', () => {
 				bad.push(`${file}:${line(m.index)}: 1fr без minmax(0, 1fr)`);
 			}
 		}
-		expect(bad, `Голий 1fr — це minmax(auto, 1fr); треба minmax(0, 1fr):\n${bad.join('\n')}`).toEqual([]);
+		expect(
+			bad,
+			`Голий 1fr — це minmax(auto, 1fr); треба minmax(0, 1fr):\n${bad.join('\n')}`
+		).toEqual([]);
 	});
 
 	it('жодного bare vh у розмірах в’юпорта — тільки dvh (§ 2)', () => {
