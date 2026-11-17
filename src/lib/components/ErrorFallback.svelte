@@ -57,7 +57,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		min-height: 60vh;
+		min-height: 60dvh;
 		width: 100%;
 		padding: 2rem 1rem;
 		box-sizing: border-box;

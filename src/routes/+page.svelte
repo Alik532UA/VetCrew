@@ -217,7 +217,6 @@
 	.page-container {
 		position: relative;
 		width: 100vw;
-		height: 100vh;
 		height: 100dvh;
 		overflow: hidden;
 		display: flex;
@@ -249,12 +248,12 @@
 
 	/* State 2: Softly shifts slightly up as bottom channels expand */
 	.hero-center.state-2 {
-		transform: translateY(-8vh);
+		transform: translateY(-8dvh);
 	}
 
 	/* State 3: Shifts slightly further up for hidden panel */
 	.hero-center.state-3 {
-		transform: translateY(-13vh);
+		transform: translateY(-13dvh);
 	}
 
 	@media (max-width: 640px) {
@@ -263,11 +262,11 @@
 		}
 
 		.hero-center.state-2 {
-			transform: translateY(-6vh);
+			transform: translateY(-6dvh);
 		}
 
 		.hero-center.state-3 {
-			transform: translateY(-10vh);
+			transform: translateY(-10dvh);
 		}
 	}
 </style>
