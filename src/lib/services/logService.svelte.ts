@@ -96,6 +96,12 @@ class LogService {
 		return this.#entries;
 	}
 
+	clear(): void {
+		this.#entries = [];
+		this.errorCount = 0;
+		if (browser) safeSessionStorage.remove(MIRROR_KEY);
+	}
+
 	getReport(): string {
 		const served = this.servedVersion ? ` (served: ${this.servedVersion})` : '';
 		const ver = typeof __APP_VERSION__ !== 'undefined' ? __APP_VERSION__ : APP_VERSION;

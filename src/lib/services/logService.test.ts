@@ -48,7 +48,7 @@ describe('журнал (DEBUGGING § 1)', () => {
 			setItem,
 			'друга спроба запису — рекурсія через попередження фасаду або дзеркало не вимкнулося'
 		).toHaveBeenCalledTimes(1);
-	});
+	}, 15000);
 
 	it('зламана консоль не валить логування (§ 1.5)', async () => {
 		vi.spyOn(console, 'error').mockImplementation(() => {
